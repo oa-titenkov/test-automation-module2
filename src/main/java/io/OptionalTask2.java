@@ -12,14 +12,21 @@ import java.util.regex.Pattern;
 public class OptionalTask2 {
     public static void main(String[] args) {
         File file = new File("src\\main\\resources\\optional_task2.java");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         List<String> textList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                StringBuilder result = new StringBuilder();
-                Matcher m = Pattern.compile("(\\s+\\b(public)\\s+)").matcher(line);
-                while (m.find()) {
-                    m.appendReplacement(result, m.group(1).replace("public", "private"));
+                StringBuffer result = new StringBuffer();
+                Matcher m = Pattern.compile("(\\s+(public)\\s+)").matcher(line);
+                if (m.find()) {
+                    m.appendReplacement(result, m.group(1).replaceAll("public", "private"));
                 }
                 m.appendTail(result);
                 textList.add(result.toString());
