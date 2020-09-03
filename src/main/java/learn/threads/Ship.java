@@ -44,4 +44,14 @@ public class Ship {
     else this.lock.unlock();
 
   }
+
+  @Override
+  public String toString() {
+    return "Ship{" +
+            "capacity=" + capacity +
+            ", name='" + name + '\'' +
+            ", containers=" + containers +
+            ", lock=" + lock +
+            '}';
+  }
 }

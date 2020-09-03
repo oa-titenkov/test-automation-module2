@@ -37,19 +37,34 @@ public class Dock {
     ship.lock.lock();
       try {
         System.out.println("Dock " + id + " loading containers from Ship #" + ship.name);
-        TimeUnit.MILLISECONDS.sleep(ship.containers * 100);
         harbor.loadContainers(ship.containers);
+        TimeUnit.MILLISECONDS.sleep(ship.containers * 100);
         System.out.println("Dock " + id + " successfully loaded " + ship.containers + " containers from Ship " + ship.name);
       } catch (InterruptedException e) {
         e.printStackTrace();
+      } catch (IllegalArgumentException exc) {
+        System.out.println("HARBOR CANNOT HANDLE THAT MANY CONTAINERS FROM SHIP: " + ship.name);
       }
     lock.unlock();
     ship.lock.unlock();
   }
 
-  public synchronized void unloading(int containerCount) {
-    for(int i = 0; i < containerCount; i++){
-      System.out.println("Ship " + id + " unloaded container #" + i);
+  public synchronized void unloading(Harbor harbor, Ship ship) {
+    lock.lock();
+    ship.lock.lock();
+    try {
+      System.out.println("Dock " + id + " unloading containers to Ship #" + ship.name);
+      harbor.unloadContainers(ship.containers, ship);
+      TimeUnit.MILLISECONDS.sleep(ship.containers * 100);
+      System.out.println("Dock " + id + " successfully unloaded " + ship.containers + " containers to Ship " + ship.name);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (IllegalArgumentException exc) {
+      System.out.println("SHIP CANNOT HANDLE THAT MANY CONTAINERS. SHIP: " + ship.name);
+    } catch(IllegalAccessException exc) {
+      System.out.println("CAN'T LOAD SHIP TO FULL CAPACITY");
     }
+    lock.unlock();
+    ship.lock.unlock();
   }
 }
