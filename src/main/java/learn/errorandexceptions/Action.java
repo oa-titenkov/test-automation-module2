@@ -1,8 +1,8 @@
-package exceptions;
+package learn.errorandexceptions;
 
-import exceptions.entity.Group;
-import exceptions.entity.UniversityClass;
-import exceptions.exceptions.*;
+import learn.errorandexceptions.entity.Group;
+import learn.errorandexceptions.entity.UniversityClass;
+import learn.errorandexceptions.exceptions.*;
 
 import java.util.Map;
 

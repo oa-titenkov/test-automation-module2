@@ -1,4 +1,4 @@
-package io;
+package learn.io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +23,6 @@ public class OptionalTask8 {
       e.printStackTrace();
     }
 
-    io.WriteToFile.writeListToFile(file, textList);
+    learn.io.WriteToFile.writeListToFile(file, textList);
   }
 }

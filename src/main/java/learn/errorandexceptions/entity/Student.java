@@ -1,4 +1,4 @@
-package exceptions.entity;
+package learn.errorandexceptions.entity;
 
 import java.util.Map;
 

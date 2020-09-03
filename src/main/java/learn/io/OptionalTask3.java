@@ -1,4 +1,4 @@
-package io;
+package learn.io;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,6 +20,6 @@ public class OptionalTask3 {
       e.printStackTrace();
     }
 
-    io.WriteToFile.writeListToFile(fileInReverse, textList);
+    learn.io.WriteToFile.writeListToFile(fileInReverse, textList);
   }
 }

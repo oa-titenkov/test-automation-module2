@@ -1,24 +1,23 @@
-package exceptions.entity;
+package learn.errorandexceptions.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Group {
+public class Faculty {
 
     private int id;
     private String name;
-    private List<Student> students;
+    private List<Group> groups;
 
-    public Group(int id, String name) {
+    public Faculty(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Group(int id, String name, List<Student> students) {
+    public Faculty(int id, String name, List<Group> groups) {
         this.id = id;
         this.name = name;
-        this.students = students;
+        this.groups = groups;
     }
 
     public int getId() {
@@ -37,35 +36,35 @@ public class Group {
         this.name = name;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Group> getGroups() {
+        return groups;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Group group = (Group) o;
-        return id == group.id &&
-                Objects.equals(name, group.name) &&
-                Objects.equals(students, group.students);
+        Faculty faculty = (Faculty) o;
+        return id == faculty.id &&
+                Objects.equals(name, faculty.name) &&
+                Objects.equals(groups, faculty.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, students);
+        return Objects.hash(id, name, groups);
     }
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "Faculty{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", students=" + students +
+                ", groups=" + groups +
                 '}';
     }
 }

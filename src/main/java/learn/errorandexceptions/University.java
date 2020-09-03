@@ -1,9 +1,9 @@
-package exceptions;
+package learn.errorandexceptions;
 
-import exceptions.entity.Faculty;
-import exceptions.entity.Group;
-import exceptions.entity.Student;
-import exceptions.entity.UniversityClass;
+import learn.errorandexceptions.entity.Faculty;
+import learn.errorandexceptions.entity.Group;
+import learn.errorandexceptions.entity.Student;
+import learn.errorandexceptions.entity.UniversityClass;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -137,4 +137,6 @@ public class University {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
+
 }

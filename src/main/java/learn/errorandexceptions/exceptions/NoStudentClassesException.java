@@ -1,4 +1,4 @@
-package exceptions.exceptions;
+package learn.errorandexceptions.exceptions;
 
 public class NoStudentClassesException extends Exception {
 
