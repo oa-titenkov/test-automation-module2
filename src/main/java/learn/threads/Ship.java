@@ -31,8 +31,12 @@ public class Ship {
     return containers;
   }
 
-  public void setContainers(int containers) {
-    this.containers = containers;
+  public void loadContainers(int containers) {
+    this.containers = this.containers + containers;
+  }
+
+  public void unloadContainers(int containers) {
+    this.containers = this.containers - containers;
   }
 
   public ReentrantLock getLock() {

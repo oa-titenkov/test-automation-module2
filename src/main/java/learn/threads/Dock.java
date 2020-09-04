@@ -1,19 +1,60 @@
 package learn.threads;
 
+import learn.threads.exceptions.NegativeContainersException;
+import learn.threads.exceptions.OverloadCapacityException;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Dock {
 
-  ReentrantLock lock = new ReentrantLock();
+  private ReentrantLock lock = new ReentrantLock(true);
   private Condition condition = lock.newCondition();
 
   private int id;
   private Ship ship;
 
-  public Dock(int id) {
+   Dock(int id) {
     this.id = id;
+  }
+
+  public void loading(Harbor harbor, Ship ship, int containers) {
+     lock.lock();
+     ship.lock.lock();
+     try {
+        harbor.loadContainers(containers);
+        System.out.println("Dock " + id + " loading containers from " + ship.name);
+        TimeUnit.MILLISECONDS.sleep(containers * 1000);
+        System.out.println("Dock " + id + " successfully loaded " + ship.containers + " containers from " + ship.name);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } catch (OverloadCapacityException e) {
+        System.out.println(e.getMessage());
+      } finally {
+       lock.unlock();
+       ship.lock.unlock();
+     }
+
+  }
+
+  public synchronized void unloading(Harbor harbor, Ship ship, int conttainers) {
+    lock.lock();
+    ship.lock.lock();
+    try {
+      harbor.unloadContainers(conttainers, ship);
+      System.out.println("Dock " + id + " unloading containers to " + ship.name);
+      TimeUnit.MILLISECONDS.sleep(conttainers * 1000);
+      System.out.println("Dock " + id + " successfully unloaded " + ship.containers + " containers to " + ship.name);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (NegativeContainersException | OverloadCapacityException e) {
+      System.out.println(e.getMessage());
+    } finally {
+      lock.unlock();
+      ship.lock.unlock();
+    }
+
   }
 
   public int getId() {
@@ -32,39 +73,11 @@ public class Dock {
     this.ship = ship;
   }
 
-  public void loading(Harbor harbor, Ship ship) {
-    lock.lock();
-    ship.lock.lock();
-      try {
-        System.out.println("Dock " + id + " loading containers from Ship #" + ship.name);
-        harbor.loadContainers(ship.containers);
-        TimeUnit.MILLISECONDS.sleep(ship.containers * 100);
-        System.out.println("Dock " + id + " successfully loaded " + ship.containers + " containers from Ship " + ship.name);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      } catch (IllegalArgumentException exc) {
-        System.out.println("HARBOR CANNOT HANDLE THAT MANY CONTAINERS FROM SHIP: " + ship.name);
-      }
-    lock.unlock();
-    ship.lock.unlock();
+  public ReentrantLock getLock() {
+    return lock;
   }
 
-  public synchronized void unloading(Harbor harbor, Ship ship) {
-    lock.lock();
-    ship.lock.lock();
-    try {
-      System.out.println("Dock " + id + " unloading containers to Ship #" + ship.name);
-      harbor.unloadContainers(ship.containers, ship);
-      TimeUnit.MILLISECONDS.sleep(ship.containers * 100);
-      System.out.println("Dock " + id + " successfully unloaded " + ship.containers + " containers to Ship " + ship.name);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } catch (IllegalArgumentException exc) {
-      System.out.println("SHIP CANNOT HANDLE THAT MANY CONTAINERS. SHIP: " + ship.name);
-    } catch(IllegalAccessException exc) {
-      System.out.println("CAN'T LOAD SHIP TO FULL CAPACITY");
-    }
-    lock.unlock();
-    ship.lock.unlock();
+  public void setLock(ReentrantLock lock) {
+    this.lock = lock;
   }
 }
