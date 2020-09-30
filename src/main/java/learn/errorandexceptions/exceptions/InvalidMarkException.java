@@ -1,6 +1,6 @@
 package learn.errorandexceptions.exceptions;
 
-public class InvalidMarkException extends Exception {
+public class InvalidMarkException extends RuntimeException {
 
     public InvalidMarkException(int mark) {
         super("Mark < 0 or > 10! (" + mark +")");

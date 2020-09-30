@@ -1,6 +1,6 @@
 package learn.errorandexceptions.exceptions;
 
-public class NoStudentClassesException extends Exception {
+public class NoStudentClassesException extends RuntimeException {
 
     public NoStudentClassesException(String student) {
         super("No student classes for student " + student);

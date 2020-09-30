@@ -1,9 +1,9 @@
 package learn.errorandexceptions.exceptions;
 
-public class NoStudentsInGroupException extends Exception {
+public class NoStudentsInGroupException extends RuntimeException {
 
     public NoStudentsInGroupException(String group) {
-        super("No student in group " + group);
+        super("No students in group " + group);
     }
 
     public NoStudentsInGroupException(String message, Throwable cause) {

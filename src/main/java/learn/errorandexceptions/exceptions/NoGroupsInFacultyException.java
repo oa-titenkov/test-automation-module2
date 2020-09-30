@@ -1,6 +1,6 @@
 package learn.errorandexceptions.exceptions;
 
-public class NoGroupsInFacultyException extends Exception {
+public class NoGroupsInFacultyException extends RuntimeException {
 
     public NoGroupsInFacultyException(String faculty) {
         super("No groups for faculty " + faculty);

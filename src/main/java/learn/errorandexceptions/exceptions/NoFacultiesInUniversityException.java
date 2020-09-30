@@ -1,6 +1,6 @@
 package learn.errorandexceptions.exceptions;
 
-public class NoFacultiesInUniversityException extends Exception {
+public class NoFacultiesInUniversityException extends RuntimeException {
 
     public NoFacultiesInUniversityException() {
         super();

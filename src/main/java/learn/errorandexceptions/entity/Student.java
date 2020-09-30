@@ -7,10 +7,10 @@ public class Student {
     private int id;
     private String firstName;
     private String lastName;
-    private Map<UniversityClass, Integer> classMarks;
+    private Map<StudyClass, Integer> classMarks;
     private Group group;
 
-    public Student(int id, String firstName, String lastName, Map<UniversityClass, Integer> classMarks) {
+    public Student(int id, String firstName, String lastName, Map<StudyClass, Integer> classMarks) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,11 +48,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Map<UniversityClass, Integer> getClassMarks() {
+    public Map<StudyClass, Integer> getClassMarks() {
         return classMarks;
     }
 
-    public void setClassMarks(Map<UniversityClass, Integer> classMarks) {
+    public void setClassMarks(Map<StudyClass, Integer> classMarks) {
         this.classMarks = classMarks;
     }
 

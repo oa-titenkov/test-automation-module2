@@ -3,7 +3,7 @@ package learn.errorandexceptions;
 import learn.errorandexceptions.entity.Faculty;
 import learn.errorandexceptions.entity.Group;
 import learn.errorandexceptions.entity.Student;
-import learn.errorandexceptions.entity.UniversityClass;
+import learn.errorandexceptions.entity.StudyClass;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,132 +11,87 @@ import java.util.List;
 
 public class University {
 
-    List<UniversityClass> lawClasses = Arrays.asList(
-            new UniversityClass(0, "Political Science"),
-            new UniversityClass(1, "Psychology"),
-            new UniversityClass(2, "Criminal Justice"),
-            new UniversityClass(3, "Economics")
-    );
-
-    List<UniversityClass> financeClasses = Arrays.asList(
-            new UniversityClass(4, "Corporate Finance"),
-            new UniversityClass(5, "Investment Banking"),
-            new UniversityClass(6, "Commercial Banking"),
-            new UniversityClass(7, "Real Estate")
-    );
-
-    List<UniversityClass> artClasses = Arrays.asList(
-            new UniversityClass(8, "English Language and Literature"),
-            new UniversityClass(9, "Theatre Arts"),
-            new UniversityClass(10, "Graphic Design"),
-            new UniversityClass(11, "Music")
-    );
-
-    List<UniversityClass> engineeringClasses = Arrays.asList(
-            new UniversityClass(12, "Electrical Engineering"),
-            new UniversityClass(13, "Mechanical Engineering"),
-            new UniversityClass(14, "Civil Engineering"),
-            new UniversityClass(15, "Computer Engineering")
+    List<StudyClass> classes = Arrays.asList(
+            new StudyClass(0, "Political Science"),
+            new StudyClass(1, "Psychology"),
+            new StudyClass(2, "Criminal Justice"),
+            new StudyClass(3, "Economics"),
+            new StudyClass(4, "Corporate Finance"),
+            new StudyClass(5, "Investment Banking"),
+            new StudyClass(6, "Commercial Banking"),
+            new StudyClass(7, "Real Estate"),
+            new StudyClass(8, "English Language and Literature"),
+            new StudyClass(9, "Theatre Arts"),
+            new StudyClass(10, "Graphic Design"),
+            new StudyClass(11, "Music"),
+            new StudyClass(12, "Electrical Engineering"),
+            new StudyClass(13, "Mechanical Engineering"),
+            new StudyClass(14, "Civil Engineering"),
+            new StudyClass(15, "Computer Engineering")
     );
 
     List<Student> students = Arrays.asList(
             new Student(0, "Dolcie", "Sinclair", new HashMap<>()),
             new Student(1, "Landon", "Bolton", new HashMap<>()),
-            new Student(2, "Lilia", "Davila", new HashMap<>())
-//            new Student(3, "Renesmae", "Soto", new HashMap<>()),
-//            new Student(4, "Tayyab", "Hines", new HashMap<>()),
-//            new Student(5, "Nazifa", "Cook", new HashMap<>()),
-//            new Student(6, "Remi", "Ewing", new HashMap<>()),
-//            new Student(7, "Kaiya", "Chester", new HashMap<>()),
-//            new Student(8, "Samirah", "Cisneros", new HashMap<>()),
-//            new Student(9, "Liam", "Ellwood", new HashMap<>()),
-//            new Student(10, "Ellise", "Zhang", new HashMap<>()),
-//            new Student(11, "Sonnie", "Southern", new HashMap<>()),
-//            new Student(12, "Waqar", "Fraser", new HashMap<>())
+            new Student(2, "Lilia", "Davila", new HashMap<>()),
+            new Student(3, "Renesmae", "Soto", new HashMap<>()),
+            new Student(4, "Tayyab", "Hines", new HashMap<>()),
+            new Student(5, "Nazifa", "Cook", new HashMap<>()),
+            new Student(6, "Remi", "Ewing", new HashMap<>()),
+            new Student(7, "Kaiya", "Chester", new HashMap<>()),
+            new Student(8, "Samirah", "Cisneros", new HashMap<>()),
+            new Student(9, "Liam", "Ellwood", new HashMap<>()),
+            new Student(10, "Ellise", "Zhang", new HashMap<>()),
+            new Student(11, "Sonnie", "Southern", new HashMap<>()),
+            new Student(12, "Waqar", "Fraser", new HashMap<>())
     );
 
     List<Group> groups = Arrays.asList(
-            new Group(0, "L11", students),
-            new Group(1, "L12", students),
-            new Group(2, "L13", students),
-            new Group(3, "F11", students),
-            new Group(4, "F12", students),
-            new Group(5, "F13", students),
-            new Group(6, "A11", students),
-            new Group(7, "A12", students),
-            new Group(8, "A13", students),
-            new Group(9, "E11", students),
-            new Group(10, "E12", students),
-            new Group(11, "E13", students)
+            new Group(0, "L11", students.subList(0, 3)),
+            new Group(1, "L12", students.subList(3, 6)),
+            new Group(2, "E11", students.subList(6, 9)),
+            new Group(3, "E12", students.subList(9, 12))
     );
 
     List<Faculty> faculties = Arrays.asList(
-            new Faculty(0, "Law", groups.subList(0,3)),
-            new Faculty(1, "Finance", groups.subList(3,6)),
-            new Faculty(2, "Art", groups.subList(6,9)),
-            new Faculty(3, "Engineering", groups.subList(9,12))
+            new Faculty(0, "Law", groups.subList(0,2)),
+            new Faculty(1, "Engineering", groups.subList(2,4))
     );
 
-    public void setClassMark(int universityClassId, int mark, int studentId) {
+    public void setMarks() {
+        this.setClassMark(0, 1, 1);
+        this.setClassMark(1, 1, 2);
+        this.setClassMark(2, 1, 3);
+        this.setClassMark(3, 1, 4);
+        this.setClassMark(4, 1, 5);
+        this.setClassMark(5, 1, 6);
+        this.setClassMark(6, 1, 7);
+        this.setClassMark(7, 1, 8);
+        this.setClassMark(8, 1, 9);
+        this.setClassMark(9, 1, 10);
+        this.setClassMark(10, 1, 8);
+        this.setClassMark(11, 1, 9);
+        this.setClassMark(12, 1, 5);
 
-        this.getStudents().get(studentId).getClassMarks().put(this.lawClasses.get(universityClassId), mark);
     }
 
-    public List<UniversityClass> getLawClasses() {
-        return lawClasses;
+    public void setClassMark(int studentId, int studyClassId, int mark) {
+        this.getStudents().get(studentId).getClassMarks().put(this.classes.get(studyClassId), mark);
     }
 
-    public void setLawClasses(List<UniversityClass> lawClasses) {
-        this.lawClasses = lawClasses;
+    public List<StudyClass> getClasses() {
+        return classes;
     }
 
-    public List<UniversityClass> getFinanceClasses() {
-        return financeClasses;
-    }
-
-    public void setFinanceClasses(List<UniversityClass> financeClasses) {
-        this.financeClasses = financeClasses;
-    }
-
-    public List<UniversityClass> getArtClasses() {
-        return artClasses;
-    }
-
-    public void setArtClasses(List<UniversityClass> artClasses) {
-        this.artClasses = artClasses;
-    }
-
-    public List<UniversityClass> getEngineeringClasses() {
-        return engineeringClasses;
-    }
-
-    public void setEngineeringClasses(List<UniversityClass> engineeringClasses) {
-        this.engineeringClasses = engineeringClasses;
-    }
 
     public List<Faculty> getFaculties() {
         return faculties;
-    }
-
-    public void setFaculties(List<Faculty> faculties) {
-        this.faculties = faculties;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
     }
 
     public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
 
 
 }
