@@ -23,7 +23,6 @@ public class Student {
         this.lastName = lastName;
     }
 
-
     public int getId() {
         return id;
     }

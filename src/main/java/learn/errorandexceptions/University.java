@@ -4,14 +4,16 @@ import learn.errorandexceptions.entity.Faculty;
 import learn.errorandexceptions.entity.Group;
 import learn.errorandexceptions.entity.Student;
 import learn.errorandexceptions.entity.StudyClass;
+import learn.errorandexceptions.exceptions.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class University {
 
-    List<StudyClass> classes = Arrays.asList(
+    private final List<StudyClass> classes = Arrays.asList(
             new StudyClass(0, "Political Science"),
             new StudyClass(1, "Psychology"),
             new StudyClass(2, "Criminal Justice"),
@@ -30,7 +32,7 @@ public class University {
             new StudyClass(15, "Computer Engineering")
     );
 
-    List<Student> students = Arrays.asList(
+    private final List<Student> students = Arrays.asList(
             new Student(0, "Dolcie", "Sinclair", new HashMap<>()),
             new Student(1, "Landon", "Bolton", new HashMap<>()),
             new Student(2, "Lilia", "Davila", new HashMap<>()),
@@ -46,14 +48,14 @@ public class University {
             new Student(12, "Waqar", "Fraser", new HashMap<>())
     );
 
-    List<Group> groups = Arrays.asList(
+    private final List<Group> groups = Arrays.asList(
             new Group(0, "L11", students.subList(0, 3)),
             new Group(1, "L12", students.subList(3, 6)),
             new Group(2, "E11", students.subList(6, 9)),
-            new Group(3, "E12", students.subList(9, 12))
+            new Group(3, "E12", students.subList(9, 13))
     );
 
-    List<Faculty> faculties = Arrays.asList(
+    private final List<Faculty> faculties = Arrays.asList(
             new Faculty(0, "Law", groups.subList(0,2)),
             new Faculty(1, "Engineering", groups.subList(2,4))
     );
@@ -75,6 +77,78 @@ public class University {
 
     }
 
+    public University() {
+        setMarks();
+    }
+
+    public String averageStudentAllClassesMark(int studentId) {
+        Student student = getStudents().get(studentId);
+        Map<StudyClass, Integer> studentMarksMap = student.getClassMarks();
+        if (studentMarksMap.size() == 0) {
+            throw new NoStudentClassesException(student.getFirstName());
+        }
+
+        int sumOfMarks = 0;
+        int marksCount = studentMarksMap.values().size();
+        for (Integer mark : studentMarksMap.values()) {
+            if (mark < 0 || mark > 10) throw new InvalidMarkException(mark);
+            sumOfMarks = sumOfMarks + mark;
+        }
+        return student.getFirstName() + "'s average mark for all classes = " + (double) sumOfMarks / marksCount;
+
+    }
+
+    public double averageGroupClassMark(int studyClassId, int groupId, int facultyId) {
+        if(getFaculties().size() == 0) {
+            throw new NoFacultiesInUniversityException();
+        }
+
+        Faculty faculty = getFaculties().get(facultyId);
+        if(getFaculties().get(facultyId).getGroups().size() == 0) {
+            throw new NoGroupsInFacultyException(faculty.getName());
+        }
+
+        Group group = faculty.getGroups().get(groupId);
+        if(group.getStudents().size() == 0) {
+            throw new NoStudentsInGroupException(group.getName());
+        }
+
+        int sumOfMarks = 0;
+        int marksCount = 0;
+        StudyClass studyClass = getClasses().get(studyClassId);
+        for (int i = 0; i < group.getStudents().size(); i++) {
+            if (group.getStudents().get(i).getClassMarks().size() == 0) {
+                throw new NoStudentClassesException(group.getStudents().get(i).getFirstName());
+            }
+            if(group.getStudents().get(i).getClassMarks().get(studyClass) != null) {
+                int mark = group.getStudents().get(i).getClassMarks().get(studyClass);
+                if (mark < 0 || mark > 10) {
+                    throw new InvalidMarkException(mark);
+                }
+                sumOfMarks = sumOfMarks + mark;
+                marksCount++;
+            }
+        }
+        return (double) sumOfMarks / marksCount;
+    }
+
+    public double averageUniversityClassMark(int studyClassId) {
+        double sumOfMarks = 0;
+        int marksCount = 0;
+        StudyClass studyClass = getClasses().get(studyClassId);
+        for(Student student: getStudents()) {
+            Integer studentClassMark = student.getClassMarks().get(studyClass);
+            if(studentClassMark != null) {
+                if (studentClassMark < 0 || studentClassMark > 10) {
+                    throw new InvalidMarkException(studentClassMark);
+                }
+                sumOfMarks = sumOfMarks + studentClassMark;
+                marksCount++;
+            }
+        }
+        return sumOfMarks / marksCount;
+    }
+
     public void setClassMark(int studentId, int studyClassId, int mark) {
         this.getStudents().get(studentId).getClassMarks().put(this.classes.get(studyClassId), mark);
     }
@@ -83,7 +157,6 @@ public class University {
         return classes;
     }
 
-
     public List<Faculty> getFaculties() {
         return faculties;
     }
@@ -91,7 +164,5 @@ public class University {
     public List<Student> getStudents() {
         return students;
     }
-
-
 
 }
