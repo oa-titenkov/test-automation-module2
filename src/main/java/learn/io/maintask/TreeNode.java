@@ -1,4 +1,4 @@
-package learn.io;
+package learn.io.maintask;
 
 import java.io.File;
 import java.util.Iterator;
@@ -35,18 +35,18 @@ public class TreeNode {
         for (Iterator<TreeNode> it = children.iterator(); it.hasNext();) {
             TreeNode next = it.next();
             if (it.hasNext()) {
-                if(next.data.isFile() && searchFolder(next.getParent())){
+                if (next.data.isFile() && searchFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "|   ", childrenIndent + "│   ");
                 }
-                else if(next.data.isFile() && !searchFolder(next.getParent())){
+                else if (next.data.isFile() && !searchFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "    ", childrenIndent + "│   ");
                 }
                 else next.printTree(builder, childrenIndent + "├───", childrenIndent + "│   ");
             } else  {
-                if(next.data.isFile() && searchFolder(next.getParent())){
+                if (next.data.isFile() && searchFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "|   ", childrenIndent + "│   ");
                 }
-                else if(next.data.isFile() && !searchFolder(next.getParent())){
+                else if (next.data.isFile() && !searchFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "    ", childrenIndent + "│   ");
                 }
                 else next.printTree(builder, childrenIndent + "└───", childrenIndent + "    ");
@@ -55,9 +55,9 @@ public class TreeNode {
     }
 
     public boolean searchFolder(TreeNode treenode) {
-        if(treenode.getChildren().size() == 0) return false;
+        if (treenode.getChildren().size() == 0) return false;
         for(int i = 0; i < treenode.getChildren().size(); i++) {
-            if(treenode.getChildren().get(i).getData().isDirectory()) return true;
+            if (treenode.getChildren().get(i).getData().isDirectory()) return true;
         }
         return false;
     }
@@ -71,7 +71,7 @@ public class TreeNode {
     public String getProperties() {
 
         for(int i = 0; i < this.getChildren().size(); i++) {
-            if(this.getChildren().get(i).getData().isFile()){
+            if (this.getChildren().get(i).getData().isFile()){
                 allFileLength = allFileLength + this.getChildren().get(i).data.getName().length();
                 fileCount++;
             }
@@ -85,12 +85,10 @@ public class TreeNode {
         }
         averageFileCount = (double) fileCount / folderCount;
         averageFileNameLength = (double) allFileLength / fileCount;
-        StringBuilder builder = new StringBuilder();
-        builder.append("Folders: ").append(folderCount).append("\n");
-        builder.append("Files: ").append(fileCount).append("\n");
-        builder.append("Average files in folder: ").append(String.format("%.2f", averageFileCount)).append("\n");
-        builder.append("Average file name length: ").append(String.format("%.2f", averageFileNameLength)).append("\n");
-        return builder.toString();
+        return "Folders: " + folderCount + "\n" +
+                "Files: " + fileCount + "\n" +
+                "Average files in folder: " + String.format("%.2f", averageFileCount) + "\n" +
+                "Average file name length: " + String.format("%.2f", averageFileNameLength) + "\n";
     }
 
     public TreeNode getParent() {

@@ -1,0 +1,4 @@
+Titenkov 10 8 9
+Nottitenkov 2 4 6
+Genius 7 7 8
+Gates 10 7 10
