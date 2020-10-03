@@ -10,9 +10,8 @@ public class Plane {
 
     public void fly() {
         try {
-
-            System.out.println("Plane #" + id + " getting ready on runway #" + Thread.currentThread().getName());
-            Thread.sleep(3000);
+            System.out.println("Plane #" + id + " getting ready on runway #" + id);
+            Thread.sleep(2000);
             System.out.println("Plane #" + id + " flew away");
         } catch (InterruptedException e) {
             e.printStackTrace();

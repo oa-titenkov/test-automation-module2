@@ -1,41 +1,37 @@
 package learn.threads.optionaltask;
 
-import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class Airport {
 
-    private static final ArrayList<Runway> runways = new ArrayList<>();
-    private static final ArrayList<Plane> planes = new ArrayList<>();
+    public static LinkedBlockingQueue<Runway> runways = new LinkedBlockingQueue<>(5);
+    public static LinkedBlockingQueue<Plane> planes = new LinkedBlockingQueue<>(10);
 
-
-    public Airport() {
-
-    }
 
     public static void main(String[] args) {
-
         for(int i = 1; i <= 5; i++) {
-            runways.add(new Runway());
+            runways.add(new Runway(i));
         }
         for(int i = 1; i <= 10; i++) {
             planes.add(new Plane(i));
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5, new Runway());
-        executorService.submit(() -> planes.get(0).fly());
-        executorService.submit(() -> planes.get(1).fly());
-        executorService.submit(() -> planes.get(2).fly());
-        executorService.submit(() -> planes.get(3).fly());
-        executorService.submit(() -> planes.get(4).fly());
-        executorService.submit(() -> planes.get(5).fly());
-        executorService.submit(() -> planes.get(6).fly());
-        executorService.submit(() -> planes.get(7).fly());
-        executorService.submit(() -> planes.get(8).fly());
-        executorService.submit(() -> planes.get(9).fly());
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+
+        for(int i = 0; i < planes.size(); i++) {
+            executorService.submit(() -> {
+                try {
+                    Runway runway = runways.take();
+                    Plane plane = planes.remove();
+                    runway.takePlane(plane);
+                    runways.put(runway);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
         executorService.shutdown();
 
     }
-
 
 }

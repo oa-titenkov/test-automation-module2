@@ -1,18 +1,23 @@
 package learn.threads.optionaltask;
 
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.locks.ReentrantLock;
+public class Runway {
 
-public class Runway implements ThreadFactory {
-
-    private int id = 1;
+    private int id;
     private Plane currentPlane;
 
-    protected final ReentrantLock lock = new ReentrantLock(true);
+    public Runway(int id) {
+        this.id = id;
+    }
 
     public void takePlane(Plane plane) {
         currentPlane = plane;
         System.out.println("Runway #" + id + " took plane #" + plane.getId());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        plane.fly();
         currentPlane = null;
         System.out.println("Runway #" + id + " is free");
     }
@@ -33,8 +38,4 @@ public class Runway implements ThreadFactory {
         this.currentPlane = currentPlane;
     }
 
-    @Override
-    public Thread newThread(Runnable r) {
-        return new Thread(r, String.valueOf(id++));
-    }
 }
