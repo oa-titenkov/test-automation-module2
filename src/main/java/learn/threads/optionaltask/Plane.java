@@ -8,11 +8,12 @@ public class Plane {
         this.id = id;
     }
 
-    public void fly() {
+    public void fly(Runway runway) {
         try {
-            System.out.println("Plane #" + id + " getting ready on runway #" + id);
+            System.out.println("Plane #" + id + " getting ready on runway #" + runway.getId());
             Thread.sleep(2000);
             System.out.println("Plane #" + id + " flew away");
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

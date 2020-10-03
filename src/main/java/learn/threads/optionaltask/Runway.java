@@ -17,7 +17,7 @@ public class Runway {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        plane.fly();
+        plane.fly(this);
         currentPlane = null;
         System.out.println("Runway #" + id + " is free");
     }
