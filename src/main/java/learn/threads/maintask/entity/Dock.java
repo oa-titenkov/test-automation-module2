@@ -22,10 +22,10 @@ public class Dock {
         ship.lock.lock();
         try {
             System.out.println("Dock " + id + " getting containers from " + ship.name);
-            TimeUnit.MILLISECONDS.sleep(containers * 1000);
-            System.out.println("Dock " + id + " successfully got " + containers + " containers from " + ship.name);
             harbor.loadContainers(containers);
             ship.unloadContainers(containers);
+            TimeUnit.SECONDS.sleep(containers);
+            System.out.println("Dock " + id + " successfully got " + containers + " containers from " + ship.name);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (OverloadCapacityException e) {
@@ -42,10 +42,34 @@ public class Dock {
         ship.lock.lock();
         try {
             System.out.println("Dock " + id + " loading containers to " + ship.name);
-            TimeUnit.MILLISECONDS.sleep(containers * 1000);
-            System.out.println("Dock " + id + " successfully loaded " + containers + " containers to " + ship.name);
             harbor.unloadContainers(containers);
             ship.loadContainers(containers);
+            TimeUnit.SECONDS.sleep(containers);
+            System.out.println("Dock " + id + " successfully loaded " + containers + " containers to " + ship.name);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (NegativeContainersException | OverloadCapacityException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            this.lock.unlock();
+            ship.lock.unlock();
+        }
+
+    }
+
+    public void loadAndUnloadContainers(Harbor harbor, Ship ship, int loadCount, int unloadCount) {
+        this.lock.lock();
+        ship.lock.lock();
+        try {
+            System.out.println("Dock " + id + " getting containers from " + ship.name);
+            System.out.println("Dock " + id + " loading containers to " + ship.name);
+            harbor.unloadContainers(loadCount);
+            harbor.loadContainers(unloadCount);
+            ship.loadContainers(loadCount);
+            ship.unloadContainers(unloadCount);
+            TimeUnit.SECONDS.sleep(loadCount + unloadCount);
+            System.out.println("Dock " + id + " successfully loaded " + loadCount + " containers to " + ship.name);
+            System.out.println("Dock " + id + " successfully got " + unloadCount + " containers from " + ship.name);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (NegativeContainersException | OverloadCapacityException e) {

@@ -15,8 +15,7 @@ public class Action {
         System.out.println("Harbor currently has " +
                 harbor.getCurrentContainersCount() + " containers and " +
                 harbor.getDockList().size() + " docks");
-        System.out.println("Supported actions: [load, unload]");
-        System.out.println("Type [SHIP_NAME ACTION CONTAINERS_NUM DOCK_NUM]");
+        System.out.println("Type [SHIP_NAME CONTAINERS_LOAD CONTAINERS_UNLOAD DOCK_NUM]");
         Scanner scanner  =  new Scanner(System.in);
 
         while (scanner.hasNext()) {
@@ -33,29 +32,29 @@ public class Action {
             else if(ship.length == 4) {
                 System.out.println(Arrays.toString(ship));
                 startShipThread(
-                        ship[1],
                         ship[0],
-                        harbor.getDockList().get(Integer.parseInt(ship[3])),
-                        Integer.parseInt(ship[2]));
+                        Integer.parseInt(ship[1]),
+                        Integer.parseInt(ship[2]),
+                        harbor.getDockList().get(Integer.parseInt(ship[3])));
             }
 
         }
 
     }
 
-    private static void startShipThread(String action, String name, Dock dock, int containers) {
+    private static void startShipThread(String name, int loadCount, int unloadCount, Dock dock) {
         Ship ship = harbor.getShipByName(name);
-        switch (action) {
-            case "load":
-                new Thread(() -> dock.unloadContainers(harbor, ship, containers)).start();
-                break;
-            case "unload":
-                new Thread(() -> dock.loadContainers(harbor, ship, containers)).start();
-                break;
-            default:
-                System.out.println("Wrong action!");
-                break;
+
+        if(loadCount != 0 && unloadCount != 0) {
+            new Thread(() -> dock.loadAndUnloadContainers(harbor, ship, loadCount, unloadCount)).start();
         }
+        else if(loadCount != 0) {
+            new Thread(() -> dock.loadContainers(harbor, ship, loadCount)).start();
+        }
+        else {
+            new Thread(() -> dock.unloadContainers(harbor, ship, unloadCount)).start();
+        }
+
     }
 
 
