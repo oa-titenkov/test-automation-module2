@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Pastebin" verbose="1" >
+    <test name="Pastebin">
+        <classes>
+            <class name="googlecloudtasks.test.GoogleCloudCalculatorTest"/>
+            <class name="pastebintasks.test.PastebinPasteCreationTest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Smoke" verbose="1" >
+    <test name="GoogleCloud">
+        <classes>
+            <class name="googlecloudtasks.test.GoogleCloudCalculatorTest">
+                <methods>
+                    <include name="calculatedPriceAndParametersAreCorrect" />
+                </methods>
+            </class>
+            <class name="pastebintasks.test.PastebinPasteCreationTest">
+                <methods>
+                    <include name="pasteCorrectlyCreatedTest" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
