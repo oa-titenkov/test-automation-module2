@@ -10,16 +10,16 @@ import org.testng.annotations.Listeners;
 @Listeners({TestListener.class})
 public class CommonConditions {
 
-  protected WebDriver driver;
+    protected WebDriver driver;
 
-  @BeforeMethod(alwaysRun = true)
-  public void browserSetup() {
-    driver = DriverSingleton.getDriver();
-  }
+    @BeforeMethod(alwaysRun = true)
+    public void browserSetup() {
+        driver = DriverSingleton.getDriver();
+    }
 
-  @AfterMethod(alwaysRun = true)
-  public void browserQuit() {
-    DriverSingleton.closeDriver();
-  }
+    @AfterMethod(alwaysRun = true)
+    public void browserQuit() {
+        DriverSingleton.closeDriver();
+    }
 
 }

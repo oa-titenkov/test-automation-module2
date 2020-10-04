@@ -8,21 +8,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleCloudResultsPage extends AbstractPage {
 
-  @FindBy(xpath = "//b[text()='Google Cloud Platform Pricing Calculator']/..")
-  private WebElement resultsPage;
+    @FindBy(xpath = "//b[text()='Google Cloud Platform Pricing Calculator']/..")
+    private WebElement resultsPage;
 
-  public GoogleCloudResultsPage(WebDriver driver) {
-    super(driver);
-  }
+    public GoogleCloudResultsPage(WebDriver driver) {
+        super(driver);
+    }
 
-  protected AbstractPage openPage() {
-    return null;
-  }
+    protected AbstractPage openPage() {
+        return null;
+    }
 
-  public GoogleCloudCalculatorPage openCalculator() {
-    WebDriverWait wait = new WebDriverWait(driver,WAIT_TIMEOUT);
-    wait.until(ExpectedConditions.visibilityOf(resultsPage));
-    resultsPage.click();
-    return new GoogleCloudCalculatorPage(driver);
-  }
+    public GoogleCloudCalculatorPage openCalculator() {
+        WebDriverWait wait = new WebDriverWait(driver,WAIT_TIMEOUT);
+        wait.until(ExpectedConditions.visibilityOf(resultsPage));
+        resultsPage.click();
+        return new GoogleCloudCalculatorPage(driver);
+    }
 }

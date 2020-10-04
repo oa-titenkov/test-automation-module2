@@ -24,7 +24,6 @@ public class PastebinPasteCreationTest {
     @Test(description = "I Can Win")
     public void pasteCorrectlyCreatedTest() {
         Paste paste = new Paste("Hello from WebDriver", "10 Minutes", "helloweb");
-        //PastebinCreatePage page = new PastebinCreatePage(driver);
         boolean expectedPasteCreation = new PastebinCreatePage(driver)
                 .openPage()
                 .createPaste(paste)

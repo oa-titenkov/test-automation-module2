@@ -7,24 +7,24 @@ import org.openqa.selenium.support.FindBy;
 
 public class GoogleCloudPage extends AbstractPage {
 
-  private final static String HOME_URL = "https://cloud.google.com/";
+    private final static String HOME_URL = "https://cloud.google.com/";
 
-  public GoogleCloudPage(WebDriver driver) {
-    super(driver);
-  }
+    public GoogleCloudPage(WebDriver driver) {
+        super(driver);
+    }
 
-  @FindBy(name = "q")
-  private WebElement searchArea;
+    @FindBy(name = "q")
+    private WebElement searchArea;
 
-  public GoogleCloudPage openPage() {
-    driver.get(HOME_URL);
-    return this;
-  }
+    public GoogleCloudPage openPage() {
+        driver.get(HOME_URL);
+        return this;
+    }
 
-  public GoogleCloudResultsPage searchForInput(String input) {
-    searchArea.click();
-    searchArea.sendKeys(input);
-    searchArea.sendKeys(Keys.ENTER);
-    return new GoogleCloudResultsPage(driver);
-  }
+    public GoogleCloudResultsPage searchForInput(String input) {
+        searchArea.click();
+        searchArea.sendKeys(input);
+        searchArea.sendKeys(Keys.ENTER);
+        return new GoogleCloudResultsPage(driver);
+    }
 }
