@@ -24,10 +24,10 @@ public class PastebinCreatePage extends AbstractPage {
     @FindBy(id = "postform-text")
     private WebElement codeArea;
 
-    @FindBy(id = "select2-postform-expiration-container")
+    @FindBy(xpath = "//span[@aria-labelledby='select2-postform-expiration-container']")
     private WebElement pasteExpirationContainer;
 
-    @FindBy(id = "select2-postform-format-container")
+    @FindBy(xpath = "//span[@aria-labelledby='select2-postform-format-container']")
     private WebElement syntaxHighlightingContainer;
 
     @FindBy(id = "postform-name")
