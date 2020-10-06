@@ -25,6 +25,9 @@ public class TenMinutesMailHomePage extends AbstractPage {
     @FindBy(xpath = "//h3[contains(text(),'USD')]")
     private WebElement mailPrice;
 
+    @FindBy(xpath = "//button[@class='qc-cmp-button']")
+    private WebElement acceptPrivacyButton;
+
 
     public TenMinutesMailHomePage openPage() {
         ((JavascriptExecutor) driver).executeScript("window.open()");
@@ -37,6 +40,9 @@ public class TenMinutesMailHomePage extends AbstractPage {
     public String copyEmailAddress() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        if(acceptPrivacyButton.isDisplayed()) {
+            acceptPrivacyButton.click();
+        }
         wait.until(ExpectedConditions.attributeContains(emailAddress, "value", "@"));
         String emailAddressText = emailAddress.getAttribute("value");
         driver.switchTo().window(tabs.get(0));
