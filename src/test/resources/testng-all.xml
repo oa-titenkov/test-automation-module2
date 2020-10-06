@@ -3,8 +3,26 @@
 <suite name="Pastebin" verbose="1" >
     <test name="Pastebin">
         <classes>
-            <class name="googlecloudtasks.test.GoogleCloudCalculatorTest"/>
-            <class name="pastebintasks.test.PastebinPasteCreationTest"/>
+            <class name="googlecloudtasks.test.GoogleCloudCalculatorTest">
+                <methods>
+                    <include name="calculatedPriceAndParametersAreCorrect" />
+                </methods>
+            </class>
+            <class name="pastebintasks.test.PastebinPasteCreationTest">
+                <methods>
+                    <include name="pasteCorrectlyCreatedTest" />
+                </methods>
+            </class>
+            <class name="googlecloudtasks.test.GoogleCloudCalculatorTest">
+                <methods>
+                    <include name="calculatedPriceFromEmailEqualsManuallyCalculatedPrice" />
+                </methods>
+            </class>
+            <class name="pastebintasks.test.PastebinPasteCreationTest">
+                <methods>
+                    <include name="pasteCorrectlyCreatedWithSyntaxTest" />
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
