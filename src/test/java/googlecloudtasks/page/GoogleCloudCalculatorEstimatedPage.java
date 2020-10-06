@@ -42,8 +42,28 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
         else return results.get(5).getText().contains("1 Year");
     }
 
-    public String checkEstimatedPrice() {
-        return estimatedCost.getText();
+    public boolean checkEstimatedVMClass(String VMClass) {
+        return results.get(1).getText().contains(VMClass.toLowerCase());
+    }
+
+    public boolean checkEstimatedInstanceType(String type) {
+        return results.get(2).getText().contains(type);
+    }
+
+    public boolean checkEstimatedLocation(String location) {
+        return results.get(3).getText().contains(location);
+    }
+
+    public boolean checkEstimatedLocalSSD(String LocalSSD) {
+        return results.get(4).getText().contains(LocalSSD);
+    }
+
+    public boolean checkEstimatedUsage(String usage) {
+        return results.get(5).getText().contains(usage);
+    }
+
+    public String getEstimatedPrice() {
+        return estimatedCost.getText().split(" ")[4];
     }
 
 
@@ -52,7 +72,7 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
         emailEstimateButton.click();
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         wait.until(ExpectedConditions.visibilityOf(emailInput));
-        String emailAddress = emailPage.openPage().copyEmailAdress();
+        String emailAddress = emailPage.openPage().copyEmailAddress();
         WebElement frame = driver.findElement(By.xpath("//iframe[contains(@name,'goog')]"));
         driver.switchTo().frame(frame);
         driver.switchTo().frame("myFrame");

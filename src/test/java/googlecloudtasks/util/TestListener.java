@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.testng.ITestListener;
 
 public class TestListener implements ITestListener {
-    private Logger log = LogManager.getRootLogger();
+    private final Logger log = LogManager.getRootLogger();
 
     public void onTestStart(ITestResult iTestResult) {
 

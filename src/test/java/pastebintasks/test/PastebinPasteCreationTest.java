@@ -1,7 +1,9 @@
 package pastebintasks.test;
 
+import org.testng.asserts.SoftAssert;
 import pastebintasks.model.Paste;
 import pastebintasks.page.PastebinCreatePage;
+import pastebintasks.page.PastebinCreatedPage;
 import pastebintasks.page.PastebinLoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,9 +18,9 @@ public class PastebinPasteCreationTest {
     @BeforeMethod(alwaysRun = true)
     public void browserSetup() {
         driver = new ChromeDriver();
-        new PastebinLoginPage(driver)
-                .openPage()
-                .loginIntoWebsite();
+//        new PastebinLoginPage(driver)
+//                .openPage()
+//                .loginIntoWebsite();
     }
 
     @Test(description = "I Can Win")
@@ -36,16 +38,22 @@ public class PastebinPasteCreationTest {
         String pasteCode = "git config --global user.name  \"New Sheriff in Town\"" +
                 "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")" +
                 "git push origin master --force";
-        Paste paste = new Paste(
-                pasteCode,
-                "10 Minutes",
-                "how to gain dominance among developers",
-                "Bash");
-        boolean expectedPasteCreation = new PastebinCreatePage(driver)
+        String pasteName = "how to gain dominance among developers";
+        String expirationTime = "10 Minutes";
+        String syntax = "Bash";
+
+        Paste paste = new Paste(pasteCode, expirationTime, pasteName, syntax);
+        PastebinCreatedPage pasteCreatedPage = new PastebinCreatePage(driver)
                 .openPage()
-                .createPaste(paste)
-                .checkForCorrectPasteCreation();
-        Assert.assertTrue(expectedPasteCreation, "Incorrect paste!");
+                .createPaste(paste);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(pasteCreatedPage.checkForCorrectPasteCreation(), "Incorrect paste!");
+        softAssert.assertEquals(driver.getTitle(), pasteName + " - Pastebin.com");
+        softAssert.assertEquals(pasteCreatedPage.getSyntax(), syntax);
+        softAssert.assertEquals(pasteCreatedPage.getCode(), pasteCode);
+        softAssert.assertAll();
+
     }
 
     @AfterMethod(alwaysRun = true)

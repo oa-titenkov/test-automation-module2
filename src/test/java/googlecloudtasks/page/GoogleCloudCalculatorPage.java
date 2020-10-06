@@ -17,7 +17,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         super(driver);
     }
 
-    private WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+    private final WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     private final Logger logger = LogManager.getRootLogger();
 
 
@@ -66,8 +66,10 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     public GoogleCloudCalculatorEstimatedPage calculateComputeEnginePrice(ComputeEngine computeEngine) {
         driver.switchTo().frame(mainFrame);
         driver.switchTo().frame("myFrame");
+
         wait.until(ExpectedConditions.visibilityOf(inputInstances));
         computeEngineButton.click();
+
         inputInstances.sendKeys(computeEngine.getNumberOfInstances());
         inputInstancesReason.sendKeys(computeEngine.getInstancesReason());
         operatingSystemSoftwareDropdown.click();
@@ -76,7 +78,9 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         parseElement(computeEngine.getVMClass(),"75").click();
         machineTypeDropdown.click();
         parseElement(computeEngine.getInstanceType(),"").click();
-        if(!computeEngine.getGPUNumber().equals("")) addGPUsCheckbox.click();
+        if(!computeEngine.getGPUNumber().equals("")) {
+            addGPUsCheckbox.click();
+        }
         wait.until(ExpectedConditions.visibilityOf(numberOfGPUsDropdown));
         numberOfGPUsDropdown.click();
         parseElement(computeEngine.getGPUNumber(),"377").click();
@@ -89,6 +93,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         committedUsageDropdown.click();
         parseElement(computeEngine.getCommittedUsage(),"93").click();
         addToEstimateButton.click();
+
         logger.info("Price estimated");
         return new GoogleCloudCalculatorEstimatedPage(driver);
     }
@@ -96,11 +101,15 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     private WebElement parseElement(String input, String id) {
         if(id.equals("")) {
             return wait.until(ExpectedConditions.visibilityOf(driver.findElement
-                    (By.xpath("//div[contains(text(),'" + input + "')]/ancestor::md-option"))));
+                    (By.xpath("//div[contains(text(),'"
+                            + input
+                            + "')]/ancestor::md-option"))));
         }
         else {
             return wait.until(ExpectedConditions.visibilityOf(driver.findElement
-                    (By.xpath("//div[contains(text(),'" + input + "')]/ancestor::md-option[@id='select_option_" +id+"']"))));
+                    (By.xpath("//div[contains(text(),'"
+                            + input
+                            + "')]/ancestor::md-option[@id='select_option_" +id+"']"))));
         }
 
     }

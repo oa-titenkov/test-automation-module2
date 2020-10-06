@@ -35,7 +35,7 @@ public class PastebinLoginPage extends AbstractPage {
         loginArea.sendKeys("sohumble");
         passwordArea.sendKeys("ze*rMgA-aH?9EA&");
         loginButton.click();
-        new WebDriverWait(driver,5)
+        new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(ExpectedConditions.titleContains("'s"));
         return this;
     }

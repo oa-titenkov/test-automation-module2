@@ -28,14 +28,14 @@ public class TenMinutesMailHomePage extends AbstractPage {
 
     public TenMinutesMailHomePage openPage() {
         ((JavascriptExecutor) driver).executeScript("window.open()");
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         driver.get("https://10minutemail.com/");
         return this;
     }
 
-    public String copyEmailAdress() {
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+    public String copyEmailAddress() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         wait.until(ExpectedConditions.attributeContains(emailAddress, "value", "@"));
         String emailAddressText = emailAddress.getAttribute("value");
@@ -43,14 +43,13 @@ public class TenMinutesMailHomePage extends AbstractPage {
         return emailAddressText;
     }
 
-    public String checkForCorrectPriceInEmail() {
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+    public String getPriceFromEmail() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.textToBePresentInElement(inboxCounter, "1"));
         mailMessage.click();
         return mailPrice.getText().split(" ")[1];
     }
-
 
 }

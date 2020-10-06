@@ -5,6 +5,7 @@ import googlecloudtasks.page.GoogleCloudPage;
 import googlecloudtasks.service.ComputeEngineService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class GoogleCloudCalculatorTest extends CommonConditions {
 
@@ -17,9 +18,16 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
                 .openPage()
                 .searchForInput(SEARCH_INPUT_TEXT)
                 .openCalculator()
-                .calculateComputeEnginePrice(new ComputeEngineService().hardcoreTaskFormFill());
-        Assert.assertTrue(calculatedPage.checkEstimatedParameters());
-        Assert.assertEquals(calculatedPage.checkEstimatedPrice().split(" ")[4], MANUALLY_CALCULATED_PRICE);
+                .calculateComputeEnginePrice(new ComputeEngineService().getComputeEngineHardcore());
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(calculatedPage.checkEstimatedVMClass("Regular"));
+        softAssert.assertTrue(calculatedPage.checkEstimatedInstanceType("n1-standard-8"));
+        softAssert.assertTrue(calculatedPage.checkEstimatedLocation("Frankfurt"));
+        softAssert.assertTrue(calculatedPage.checkEstimatedLocalSSD("2x375 GiB"));
+        softAssert.assertTrue(calculatedPage.checkEstimatedUsage("1 Year"));
+        softAssert.assertEquals(calculatedPage.getEstimatedPrice(), MANUALLY_CALCULATED_PRICE);
+        softAssert.assertAll();
     }
 
     @Test(description = "Hardcore")
@@ -28,11 +36,10 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
                 .openPage()
                 .searchForInput(SEARCH_INPUT_TEXT)
                 .openCalculator()
-                .calculateComputeEnginePrice(new ComputeEngineService().hardcoreTaskFillFromProperty())
+                .calculateComputeEnginePrice(new ComputeEngineService().getComputeEngineHardcoreFromProperty())
                 .sendEstimatedByEmail()
-                .checkForCorrectPriceInEmail();
+                .getPriceFromEmail();
         Assert.assertEquals(calculatedPrice, MANUALLY_CALCULATED_PRICE);
     }
-
 
 }

@@ -100,8 +100,8 @@ public class ComputeEngine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ComputeEngine that = (ComputeEngine) o;
-        return numberOfInstances == that.numberOfInstances &&
-                GPUNumber == that.GPUNumber &&
+        return numberOfInstances.equals(that.numberOfInstances) &&
+                GPUNumber.equals(that.GPUNumber) &&
                 Objects.equals(instancesReason, that.instancesReason) &&
                 Objects.equals(operationSystemSoftware, that.operationSystemSoftware) &&
                 Objects.equals(VMClass, that.VMClass) &&
@@ -114,8 +114,9 @@ public class ComputeEngine {
 
     @Override
     public int hashCode() {
-        return Objects.hash(numberOfInstances, instancesReason, operationSystemSoftware, VMClass, instanceType, GPUNumber,
-                            GPUType, LocalSSD, location, committedUsage);
+        return Objects.hash(numberOfInstances, instancesReason, operationSystemSoftware,
+                VMClass, instanceType, GPUNumber,
+                GPUType, LocalSSD, location, committedUsage);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class PastebinCreatePage extends AbstractPage {
     }
 
     @FindBy(id = "postform-text")
-    private WebElement textArea;
+    private WebElement codeArea;
 
     @FindBy(id = "select2-postform-expiration-container")
     private WebElement pasteExpirationContainer;
@@ -37,17 +37,17 @@ public class PastebinCreatePage extends AbstractPage {
 
     public PastebinCreatePage openPage() {
         this.driver.get(HOME_URL);
-        new WebDriverWait(driver,10)
-                .until(ExpectedConditions.visibilityOf(textArea));
+        new WebDriverWait(driver, WAIT_TIMEOUT)
+                .until(ExpectedConditions.visibilityOf(codeArea));
         return this;
     }
 
     public PastebinCreatedPage createPaste(Paste paste) {
-        textArea.sendKeys(paste.getPasteCode());
+        codeArea.sendKeys(paste.getPasteCode());
         pasteName.sendKeys(paste.getPasteName());
         pasteExpirationContainer.click();
         Actions focusOnDropDown = new Actions(driver).moveToElement(pasteExpirationContainer);
-        focusOnDropDown.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        focusOnDropDown.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
         if(paste.getSyntaxHighlighting() != null) {
             syntaxHighlightingContainer.click();
             syntaxHighlightingInput.sendKeys(paste.getSyntaxHighlighting());
