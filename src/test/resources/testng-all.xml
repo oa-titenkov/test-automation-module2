@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Pastebin" verbose="1" >
-    <test name="Pastebin">
+    <test name="First">
         <classes>
             <class name="googlecloudtasks.test.GoogleCloudCalculatorTest">
                 <methods>
@@ -13,6 +13,10 @@
                     <include name="pasteCorrectlyCreatedTest" />
                 </methods>
             </class>
+        </classes>
+    </test>
+    <test name="Second">
+        <classes>
             <class name="googlecloudtasks.test.GoogleCloudCalculatorTest">
                 <methods>
                     <include name="calculatedPriceFromEmailEqualsManuallyCalculatedPrice" />
