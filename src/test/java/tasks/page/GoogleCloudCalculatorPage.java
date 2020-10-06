@@ -27,37 +27,37 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     @FindBy(xpath = "//div[@class='tab-holder compute']")
     private WebElement computeEngineButton;
 
-    @FindBy(xpath = "//input[@id='input_60']")
+    @FindBy(xpath = "//input[@id='input_61']")
     private WebElement inputInstances;
 
-    @FindBy(xpath = "//input[@id='input_61']")
+    @FindBy(xpath = "//input[@id='input_62']")
     private WebElement inputInstancesReason;
 
-    @FindBy(id = "select_value_label_53")
+    @FindBy(id = "select_value_label_54")
     private WebElement operatingSystemSoftwareDropdown;
 
-    @FindBy(id = "select_value_label_54")
+    @FindBy(id = "select_value_label_55")
     private WebElement VMClassDropdown;
 
-    @FindBy(id = "select_86")
+    @FindBy(id = "select_87")
     private WebElement machineTypeDropdown;
 
     @FindBy(xpath = "//md-checkbox[@ng-model='listingCtrl.computeServer.addGPUs']")
     private WebElement addGPUsCheckbox;
 
-    @FindBy(id = "select_value_label_370")
+    @FindBy(id = "select_value_label_371")
     private WebElement numberOfGPUsDropdown;
 
-    @FindBy(id = "select_value_label_371")
+    @FindBy(id = "select_value_label_372")
     private WebElement GPUTypeDropdown;
 
-    @FindBy(id = "select_value_label_192")
+    @FindBy(id = "select_value_label_193")
     private WebElement localSSDDropdown;
 
-    @FindBy(id = "select_value_label_58")
+    @FindBy(id = "select_value_label_59")
     private WebElement datacenterLocationDropdown;
 
-    @FindBy(id = "select_value_label_59")
+    @FindBy(id = "select_value_label_60")
     private WebElement committedUsageDropdown;
 
     @FindBy(xpath = "//button[@aria-label='Add to Estimate']")
@@ -75,7 +75,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         operatingSystemSoftwareDropdown.click();
         parseElement(computeEngine.getOperationSystemSoftware(),"").click();
         VMClassDropdown.click();
-        parseElement(computeEngine.getVMClass(),"75").click();
+        parseElement(computeEngine.getVMClass(),"76").click();
         machineTypeDropdown.click();
         parseElement(computeEngine.getInstanceType(),"").click();
         if(!computeEngine.getGPUNumber().equals("")) {
@@ -83,15 +83,15 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         }
         wait.until(ExpectedConditions.visibilityOf(numberOfGPUsDropdown));
         numberOfGPUsDropdown.click();
-        parseElement(computeEngine.getGPUNumber(),"377").click();
+        parseElement(computeEngine.getGPUNumber(),"378").click();
         GPUTypeDropdown.click();
         parseElement(computeEngine.getGPUType(),"").click();
         localSSDDropdown.click();
         parseElement(computeEngine.getLocalSSD(),"").click();
         datacenterLocationDropdown.click();
-        parseElement(computeEngine.getLocation(),"204").click();
+        parseElement(computeEngine.getLocation(),"205").click();
         committedUsageDropdown.click();
-        parseElement(computeEngine.getCommittedUsage(),"93").click();
+        parseElement(computeEngine.getCommittedUsage(),"94").click();
         addToEstimateButton.click();
 
         logger.info("Price estimated");
