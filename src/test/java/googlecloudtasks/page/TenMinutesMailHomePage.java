@@ -58,6 +58,7 @@ public class TenMinutesMailHomePage extends AbstractPage {
         if(driver.findElements(By.xpath("//button[contains(text(),'Agree')]")).size() != 0) {
             acceptPrivacyButton.click();
         }
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         mailMessage.click();
         return mailPrice.getText().split(" ")[1];
     }
