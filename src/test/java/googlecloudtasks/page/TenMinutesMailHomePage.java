@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class TenMinutesMailHomePage extends AbstractPage {
 
@@ -40,11 +41,11 @@ public class TenMinutesMailHomePage extends AbstractPage {
     public String copyEmailAddress() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        wait.until(ExpectedConditions.attributeContains(emailAddress, "value", "@"));
+        String emailAddressText = emailAddress.getAttribute("value");
         if(driver.findElements(By.xpath("//button[@class='qc-cmp-button']")).size() != 0) {
             acceptPrivacyButton.click();
         }
-        wait.until(ExpectedConditions.attributeContains(emailAddress, "value", "@"));
-        String emailAddressText = emailAddress.getAttribute("value");
         driver.switchTo().window(tabs.get(0));
         return emailAddressText;
     }
@@ -53,6 +54,10 @@ public class TenMinutesMailHomePage extends AbstractPage {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         WebDriverWait wait = new WebDriverWait(driver, 30);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        if(driver.findElements(By.xpath("//button[@class='qc-cmp-button']")).size() != 0) {
+            acceptPrivacyButton.click();
+        }
         wait.until(ExpectedConditions.textToBePresentInElement(inboxCounter, "1"));
         mailMessage.click();
         return mailPrice.getText().split(" ")[1];
