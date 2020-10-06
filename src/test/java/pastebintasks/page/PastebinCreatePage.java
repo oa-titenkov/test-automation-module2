@@ -35,6 +35,9 @@ public class PastebinCreatePage extends AbstractPage {
     @FindBy(xpath = "//input[@class='select2-search__field']")
     private WebElement syntaxHighlightingInput;
 
+    @FindBy(id = "accept-choices")
+    private WebElement acceptPrivacyButton;
+
     public PastebinCreatePage openPage() {
         this.driver.get(HOME_URL);
         new WebDriverWait(driver, WAIT_TIMEOUT)
@@ -43,6 +46,9 @@ public class PastebinCreatePage extends AbstractPage {
     }
 
     public PastebinCreatedPage createPaste(Paste paste) {
+        if(acceptPrivacyButton.isDisplayed()) {
+            acceptPrivacyButton.click();
+        }
         codeArea.sendKeys(paste.getPasteCode());
         pasteName.sendKeys(paste.getPasteName());
         pasteExpirationContainer.click();
