@@ -1,5 +1,7 @@
 package googlecloudtasks.page;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class TenMinutesMailHomePage extends AbstractPage {
+
+    private final Logger logger = LogManager.getRootLogger();
 
     public TenMinutesMailHomePage(WebDriver driver) {
         super(driver);
@@ -28,6 +32,9 @@ public class TenMinutesMailHomePage extends AbstractPage {
 
     @FindBy(xpath = "//button[contains(text(),'I accept')]")
     private WebElement acceptPrivacyButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Agree')]")
+    private WebElement agreePrivacyButton;
 
 
     public TenMinutesMailHomePage openPage() {
@@ -58,9 +65,15 @@ public class TenMinutesMailHomePage extends AbstractPage {
         if(driver.findElements(By.xpath("//button[contains(text(),'I accept')]")).size() != 0) {
             acceptPrivacyButton.click();
         }
+        else if(driver.findElements(By.xpath("//button[contains(text(),'Agree')]")).size() != 0) {
+            agreePrivacyButton.click();
+        }
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         mailMessage.click();
-        return mailPrice.getText().split(" ")[1];
+        wait.until(ExpectedConditions.visibilityOf(mailPrice));
+        String price = mailPrice.getText();
+        logger.info("price " + price);
+        return price.split(" ")[1];
     }
 
 }
