@@ -26,7 +26,7 @@ public class TenMinutesMailHomePage extends AbstractPage {
     @FindBy(xpath = "//h3[contains(text(),'USD')]")
     private WebElement mailPrice;
 
-    @FindBy(xpath = "//button[@class='qc-cmp-button']")
+    @FindBy(xpath = "//button[contains(text(),'Agree')]")
     private WebElement acceptPrivacyButton;
 
 
@@ -43,7 +43,7 @@ public class TenMinutesMailHomePage extends AbstractPage {
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         wait.until(ExpectedConditions.attributeContains(emailAddress, "value", "@"));
         String emailAddressText = emailAddress.getAttribute("value");
-        if(driver.findElements(By.xpath("//button[@class='qc-cmp-button']")).size() != 0) {
+        if(driver.findElements(By.xpath("//button[contains(text(),'Agree')]")).size() != 0) {
             acceptPrivacyButton.click();
         }
         driver.switchTo().window(tabs.get(0));
@@ -54,11 +54,10 @@ public class TenMinutesMailHomePage extends AbstractPage {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        if(driver.findElements(By.xpath("//button[@class='qc-cmp-button']")).size() != 0) {
+        wait.until(ExpectedConditions.textToBePresentInElement(inboxCounter, "1"));
+        if(driver.findElements(By.xpath("//button[contains(text(),'Agree')]")).size() != 0) {
             acceptPrivacyButton.click();
         }
-        wait.until(ExpectedConditions.textToBePresentInElement(inboxCounter, "1"));
         mailMessage.click();
         return mailPrice.getText().split(" ")[1];
     }

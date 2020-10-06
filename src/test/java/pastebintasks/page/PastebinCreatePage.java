@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class PastebinCreatePage extends AbstractPage {
@@ -63,6 +64,7 @@ public class PastebinCreatePage extends AbstractPage {
             syntaxHighlightingInput.sendKeys(paste.getSyntaxHighlighting());
             syntaxHighlightingInput.sendKeys(Keys.ENTER);
         }
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         createNewPasteButton.click();
         return new PastebinCreatedPage(driver);
     }
