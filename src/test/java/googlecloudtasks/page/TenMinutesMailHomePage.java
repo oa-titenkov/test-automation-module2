@@ -40,7 +40,7 @@ public class TenMinutesMailHomePage extends AbstractPage {
     public String copyEmailAddress() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
-        if(acceptPrivacyButton.isDisplayed()) {
+        if(driver.findElements(By.xpath("//button[@class='qc-cmp-button']")).size() != 0) {
             acceptPrivacyButton.click();
         }
         wait.until(ExpectedConditions.attributeContains(emailAddress, "value", "@"));

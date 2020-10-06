@@ -1,5 +1,6 @@
 package pastebintasks.page;
 
+import org.openqa.selenium.By;
 import pastebintasks.model.Paste;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -46,7 +47,7 @@ public class PastebinCreatePage extends AbstractPage {
     }
 
     public PastebinCreatedPage createPaste(Paste paste) {
-        if(acceptPrivacyButton.isDisplayed()) {
+        if(driver.findElements(By.id("accept-choices")).size() != 0) {
             acceptPrivacyButton.click();
         }
         codeArea.sendKeys(paste.getPasteCode());
