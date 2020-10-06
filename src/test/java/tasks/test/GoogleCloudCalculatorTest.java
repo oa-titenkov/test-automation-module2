@@ -1,8 +1,8 @@
-package googlecloudtasks.test;
+package tasks.test;
 
-import googlecloudtasks.page.GoogleCloudCalculatorEstimatedPage;
-import googlecloudtasks.page.GoogleCloudPage;
-import googlecloudtasks.service.ComputeEngineService;
+import tasks.page.GoogleCloudCalculatorEstimatedPage;
+import tasks.page.GoogleCloudPage;
+import tasks.service.ComputeEngineService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;

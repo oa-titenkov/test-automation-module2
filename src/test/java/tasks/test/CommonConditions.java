@@ -1,7 +1,7 @@
-package googlecloudtasks.test;
+package tasks.test;
 
-import googlecloudtasks.driver.DriverSingleton;
-import googlecloudtasks.util.TestListener;
+import tasks.driver.DriverSingleton;
+import tasks.util.TestListener;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

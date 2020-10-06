@@ -1,4 +1,4 @@
-package googlecloudtasks.service;
+package tasks.service;
 
 import java.util.ResourceBundle;
 

@@ -1,7 +1,7 @@
-package pastebintasks.page;
+package tasks.page;
 
 import org.openqa.selenium.By;
-import pastebintasks.model.Paste;
+import tasks.model.Paste;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class PastebinCreatePage extends AbstractPage {

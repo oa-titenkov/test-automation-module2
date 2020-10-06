@@ -1,6 +1,6 @@
-package googlecloudtasks.service;
+package tasks.service;
 
-import googlecloudtasks.model.ComputeEngine;
+import tasks.model.ComputeEngine;
 
 public class ComputeEngineService {
 

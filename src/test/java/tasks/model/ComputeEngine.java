@@ -1,4 +1,4 @@
-package googlecloudtasks.model;
+package tasks.model;
 
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
-package googlecloudtasks.util;
+package tasks.util;
 
-import googlecloudtasks.driver.DriverSingleton;
+import tasks.driver.DriverSingleton;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

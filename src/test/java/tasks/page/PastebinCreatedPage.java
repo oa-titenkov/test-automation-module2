@@ -1,4 +1,4 @@
-package pastebintasks.page;
+package tasks.page;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;

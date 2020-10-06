@@ -1,4 +1,4 @@
-package pastebintasks.model;
+package tasks.model;
 
 public class Paste {
 

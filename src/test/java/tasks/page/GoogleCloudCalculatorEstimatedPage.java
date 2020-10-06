@@ -1,4 +1,4 @@
-package googlecloudtasks.page;
+package tasks.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -3,12 +3,12 @@
 <suite name="Smoke" verbose="1" >
     <test name="GoogleCloud">
         <classes>
-            <class name="googlecloudtasks.test.GoogleCloudCalculatorTest">
+            <class name="tasks.test.GoogleCloudCalculatorTest">
                 <methods>
                     <include name="calculatedPriceAndParametersAreCorrect" />
                 </methods>
             </class>
-            <class name="pastebintasks.test.PastebinPasteCreationTest">
+            <class name="tasks.test.PastebinPasteCreationTest">
                 <methods>
                     <include name="pasteCorrectlyCreatedTest" />
                 </methods>

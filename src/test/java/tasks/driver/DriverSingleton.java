@@ -1,4 +1,4 @@
-package googlecloudtasks.driver;
+package tasks.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
