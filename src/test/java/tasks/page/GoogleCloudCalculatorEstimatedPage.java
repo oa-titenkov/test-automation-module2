@@ -2,9 +2,7 @@ package tasks.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -37,14 +35,6 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
     @FindBy(xpath = "//iframe[contains(@name,'goog')]")
     private WebElement iFrame;
 
-    public boolean checkEstimatedParameters() {
-        if(!results.get(1).getText().contains("regular")) return false;
-        else if(!results.get(2).getText().contains("n1-standard-8")) return false;
-        else if(!results.get(3).getText().contains("Frankfurt")) return false;
-        else if(!results.get(4).getText().contains("2x375 GiB")) return false;
-        else return results.get(5).getText().contains("1 Year");
-    }
-
     public boolean checkEstimatedVMClass(String VMClass) {
         return results.get(1).getText().contains(VMClass.toLowerCase());
     }
@@ -76,13 +66,14 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         wait.until(ExpectedConditions.visibilityOf(emailInput));
         String emailAddress = emailPage.openPage().copyEmailAddress();
+        driver.switchTo().defaultContent();
         wait.until(ExpectedConditions.visibilityOf(iFrame));
         driver.switchTo().frame(iFrame);
         driver.switchTo().frame("myFrame");
         wait.until(ExpectedConditions.visibilityOf(emailInput));
         emailInput.sendKeys(emailAddress);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sendEmailButton);
-        sendEmailButton.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sendEmailButton);
+        sendEmailButton.sendKeys(Keys.ENTER);
         logger.info("Sent price to mail: " + emailAddress);
         return emailPage;
     }

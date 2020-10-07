@@ -1,15 +1,12 @@
 package tasks.page;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import tasks.model.ComputeEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.ResourceBundle;
 
 public class GoogleCloudCalculatorPage extends AbstractPage {
 
@@ -86,7 +83,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         }
         wait.until(ExpectedConditions.visibilityOf(machineTypeDropdown)).click();
         machineTypeDropdown.sendKeys(Keys.ENTER);
-        getElement(computeEngine.getInstanceType()).click();
+        wait.until(ExpectedConditions.visibilityOf(getElement(computeEngine.getInstanceType()))).click();
 
         if(!computeEngine.getGPUNumber().equals("")) {
             addGPUsCheckbox.click();
