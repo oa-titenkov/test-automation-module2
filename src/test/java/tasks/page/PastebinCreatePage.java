@@ -1,10 +1,7 @@
 package tasks.page;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import tasks.model.Paste;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -59,6 +56,8 @@ public class PastebinCreatePage extends AbstractPage {
         Actions focusOnDropDown = new Actions(driver).moveToElement(pasteExpirationContainer);
         focusOnDropDown.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
         if(paste.getSyntaxHighlighting() != null) {
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView();", syntaxHighlightingContainer);
             syntaxHighlightingContainer.click();
             syntaxHighlightingInput.sendKeys(paste.getSyntaxHighlighting());
             syntaxHighlightingInput.sendKeys(Keys.ENTER);
