@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class TenMinutesMailHomePage extends AbstractPage {
 
@@ -68,8 +67,7 @@ public class TenMinutesMailHomePage extends AbstractPage {
         else if(driver.findElements(By.xpath("//button[contains(text(),'Agree')]")).size() != 0) {
             agreePrivacyButton.click();
         }
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        mailMessage.click();
+        wait.until(ExpectedConditions.visibilityOf(mailMessage)).click();
         wait.until(ExpectedConditions.visibilityOf(mailPrice));
         String price = mailPrice.getText();
         logger.info("price " + price);

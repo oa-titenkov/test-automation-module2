@@ -10,7 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class GoogleCloudCalculatorPage extends AbstractPage {
 
     public GoogleCloudCalculatorPage(WebDriver driver) {
@@ -75,6 +74,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
 
         inputInstances.sendKeys(computeEngine.getNumberOfInstances());
         inputInstancesReason.sendKeys(computeEngine.getInstancesReason());
+
         operatingSystemSoftwareDropdown.click();
         getElement(computeEngine.getOperationSystemSoftware()).click();
         VMClassDropdown.click();
@@ -84,8 +84,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         if(!computeEngine.getGPUNumber().equals("")) {
             addGPUsCheckbox.click();
         }
-        wait.until(ExpectedConditions.visibilityOf(numberOfGPUsDropdown));
-        numberOfGPUsDropdown.click();
+        wait.until(ExpectedConditions.visibilityOf(numberOfGPUsDropdown)).click();
         gpuNumberOption.click();
         GPUTypeDropdown.click();
         getElement(computeEngine.getGPUType()).click();

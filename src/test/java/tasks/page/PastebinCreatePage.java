@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 public class PastebinCreatePage extends AbstractPage {
 
     private final static String HOME_URL = "https://pastebin.com/";
@@ -46,7 +44,8 @@ public class PastebinCreatePage extends AbstractPage {
     }
 
     public PastebinCreatedPage createPaste(Paste paste) {
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
+        wait.until(ExpectedConditions.visibilityOf(codeArea));
         if(driver.findElements(By.id("accept-choices")).size() != 0) {
             acceptPrivacyButton.click();
         }
@@ -62,8 +61,7 @@ public class PastebinCreatePage extends AbstractPage {
             syntaxHighlightingInput.sendKeys(paste.getSyntaxHighlighting());
             syntaxHighlightingInput.sendKeys(Keys.ENTER);
         }
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        createNewPasteButton.click();
+        wait.until(ExpectedConditions.visibilityOf(createNewPasteButton)).click();
         return new PastebinCreatedPage(driver);
     }
 
