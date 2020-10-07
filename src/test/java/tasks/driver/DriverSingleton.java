@@ -24,9 +24,7 @@ public class DriverSingleton {
                 }
                 case "chrome": {
                     WebDriverManager.chromedriver().setup();
-                    ChromeOptions options = new ChromeOptions();
-                    options.setBinary("c:\\Users\\Titenkov\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe");
-                    driver = new ChromeDriver(options);
+                    driver = new ChromeDriver();
                     break;
                 }
             }
