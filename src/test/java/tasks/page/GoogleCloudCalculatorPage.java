@@ -79,7 +79,8 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         getElement(computeEngine.getOperationSystemSoftware()).click();
         VMClassDropdown.click();
         getElement(computeEngine.getVMClass()).click();
-        machineTypeDropdown.click();
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToEstimateButton);
+        wait.until(ExpectedConditions.visibilityOf(machineTypeDropdown)).click();
         getElement(computeEngine.getInstanceType()).click();
         if(!computeEngine.getGPUNumber().equals("")) {
             addGPUsCheckbox.click();

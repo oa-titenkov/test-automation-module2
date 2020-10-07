@@ -34,6 +34,9 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
     @FindBy(xpath = "//button[@aria-label='Send Email']")
     private WebElement sendEmailButton;
 
+    @FindBy(xpath = "//iframe[contains(@name,'goog')]")
+    private WebElement iFrame;
+
     public boolean checkEstimatedParameters() {
         if(!results.get(1).getText().contains("regular")) return false;
         else if(!results.get(2).getText().contains("n1-standard-8")) return false;
@@ -73,11 +76,12 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         wait.until(ExpectedConditions.visibilityOf(emailInput));
         String emailAddress = emailPage.openPage().copyEmailAddress();
-        WebElement frame = driver.findElement(By.xpath("//iframe[contains(@name,'goog')]"));
-        driver.switchTo().frame(frame);
+        wait.until(ExpectedConditions.visibilityOf(iFrame));
+        driver.switchTo().frame(iFrame);
         driver.switchTo().frame("myFrame");
         wait.until(ExpectedConditions.visibilityOf(emailInput));
         emailInput.sendKeys(emailAddress);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sendEmailButton);
         sendEmailButton.click();
         logger.info("Sent price to mail: " + emailAddress);
         return emailPage;
