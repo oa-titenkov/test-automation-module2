@@ -57,7 +57,7 @@ public class PastebinCreatePage extends AbstractPage {
         focusOnDropDown.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
         if(paste.getSyntaxHighlighting() != null) {
             ((JavascriptExecutor) driver).executeScript(
-                    "arguments[0].scrollIntoView();", syntaxHighlightingContainer);
+                    "arguments[0].scrollIntoView();", codeArea);
             syntaxHighlightingContainer.click();
             syntaxHighlightingInput.sendKeys(paste.getSyntaxHighlighting());
             syntaxHighlightingInput.sendKeys(Keys.ENTER);
