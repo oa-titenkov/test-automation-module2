@@ -80,11 +80,14 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         getElement(computeEngine.getOperationSystemSoftware()).click();
         VMClassDropdown.click();
         getElement(computeEngine.getVMClass()).click();
+
         if(System.getProperty("browser").equals("firefox")) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToEstimateButton);
         }
         wait.until(ExpectedConditions.visibilityOf(machineTypeDropdown)).click();
+        machineTypeDropdown.sendKeys(Keys.ENTER);
         getElement(computeEngine.getInstanceType()).click();
+
         if(!computeEngine.getGPUNumber().equals("")) {
             addGPUsCheckbox.click();
         }
@@ -98,8 +101,8 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         getElement(computeEngine.getLocation()).click();
         committedUsageDropdown.click();
         getElement(computeEngine.getCommittedUsage()).click();
-        addToEstimateButton.click();
 
+        addToEstimateButton.click();
         logger.info("Price estimated");
         return new GoogleCloudCalculatorEstimatedPage(driver);
     }
