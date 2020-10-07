@@ -20,7 +20,7 @@ public class Task2 {
             String line;
             while ((line = reader.readLine()) != null) {
                 StringBuffer result = new StringBuffer();
-                Matcher matcher = Pattern.compile("(\\s+(public)\\s+)").matcher(line);
+                Matcher matcher = Pattern.compile("(^\\s+(public)\\s+)").matcher(line);
                 if (matcher.find()) {
                     matcher.appendReplacement(result, matcher.group(1).replaceAll("public", "private"));
                 }

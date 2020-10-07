@@ -9,14 +9,10 @@ import java.util.*;
 public class Runner {
 
     public static void main(String[] args) {
-        createFolderTree(args[0]);
-    }
-
-    public static void createFolderTree(String dirPath){
-        File root = new File(dirPath);
+        File root = new File(args[0]);
         if(root.isDirectory()) {
             TreeNode node = new TreeNode(root);
-            createFolderTree(root, node);
+            createDirectoryTree(root, node);
             File file = new File("src\\main\\resources\\file_tree.txt");
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 writer.write(node.toString());
@@ -25,17 +21,16 @@ public class Runner {
             }
         }
         else if(root.isFile()) {
-            printProperties(root);
+            printFileProperties(root);
         }
-
     }
 
-    public static void createFolderTree(File folder, TreeNode node){
-        File[] files = folder.listFiles();
-        Arrays.sort(Objects.requireNonNull(files), Comparator.comparing(File::isDirectory));
-        for (File file : files) {
+    public static void createDirectoryTree(File folder, TreeNode node){
+        File[] directoryFiles = folder.listFiles();
+        Arrays.sort(Objects.requireNonNull(directoryFiles), Comparator.comparing(File::isDirectory));
+        for (File file : directoryFiles) {
             if (file.isDirectory()) {
-                createFolderTree(file, node.addChild(file));
+                createDirectoryTree(file, node.addChild(file));
             } else {
                 node.addChild(file);
             }
@@ -43,9 +38,9 @@ public class Runner {
 
     }
 
-    public static void printProperties(File filePath) {
+    public static void printFileProperties(File filePath) {
         TreeNode node = new TreeNode(filePath.getParentFile());
-        createFolderTree(filePath.getParentFile(), node);
+        createDirectoryTree(filePath.getParentFile(), node);
         System.out.println(node.getProperties());
 
     }

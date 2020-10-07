@@ -3,7 +3,7 @@ package learn.errorandexceptions;
 import learn.errorandexceptions.entity.Faculty;
 import learn.errorandexceptions.entity.Group;
 import learn.errorandexceptions.entity.Student;
-import learn.errorandexceptions.entity.StudyClass;
+import learn.errorandexceptions.entity.Subject;
 import learn.errorandexceptions.exceptions.*;
 
 import java.util.Arrays;
@@ -13,23 +13,23 @@ import java.util.Map;
 
 public class University {
 
-    private final List<StudyClass> classes = Arrays.asList(
-            new StudyClass(0, "Political Science"),
-            new StudyClass(1, "Psychology"),
-            new StudyClass(2, "Criminal Justice"),
-            new StudyClass(3, "Economics"),
-            new StudyClass(4, "Corporate Finance"),
-            new StudyClass(5, "Investment Banking"),
-            new StudyClass(6, "Commercial Banking"),
-            new StudyClass(7, "Real Estate"),
-            new StudyClass(8, "English Language and Literature"),
-            new StudyClass(9, "Theatre Arts"),
-            new StudyClass(10, "Graphic Design"),
-            new StudyClass(11, "Music"),
-            new StudyClass(12, "Electrical Engineering"),
-            new StudyClass(13, "Mechanical Engineering"),
-            new StudyClass(14, "Civil Engineering"),
-            new StudyClass(15, "Computer Engineering")
+    private final List<Subject> classes = Arrays.asList(
+            new Subject(0, "Political Science"),
+            new Subject(1, "Psychology"),
+            new Subject(2, "Criminal Justice"),
+            new Subject(3, "Economics"),
+            new Subject(4, "Corporate Finance"),
+            new Subject(5, "Investment Banking"),
+            new Subject(6, "Commercial Banking"),
+            new Subject(7, "Real Estate"),
+            new Subject(8, "English Language and Literature"),
+            new Subject(9, "Theatre Arts"),
+            new Subject(10, "Graphic Design"),
+            new Subject(11, "Music"),
+            new Subject(12, "Electrical Engineering"),
+            new Subject(13, "Mechanical Engineering"),
+            new Subject(14, "Civil Engineering"),
+            new Subject(15, "Computer Engineering")
     );
 
     private final List<Student> students = Arrays.asList(
@@ -83,7 +83,7 @@ public class University {
 
     public String averageStudentAllClassesMark(int studentId) {
         Student student = getStudents().get(studentId);
-        Map<StudyClass, Integer> studentMarksMap = student.getClassMarks();
+        Map<Subject, Integer> studentMarksMap = student.getClassMarks();
         if (studentMarksMap.size() == 0) {
             throw new NoStudentClassesException(student.getFirstName());
         }
@@ -115,13 +115,13 @@ public class University {
 
         int sumOfMarks = 0;
         int marksCount = 0;
-        StudyClass studyClass = getClasses().get(studyClassId);
+        Subject subject = getClasses().get(studyClassId);
         for (int i = 0; i < group.getStudents().size(); i++) {
             if (group.getStudents().get(i).getClassMarks().size() == 0) {
                 throw new NoStudentClassesException(group.getStudents().get(i).getFirstName());
             }
-            if(group.getStudents().get(i).getClassMarks().get(studyClass) != null) {
-                int mark = group.getStudents().get(i).getClassMarks().get(studyClass);
+            if(group.getStudents().get(i).getClassMarks().get(subject) != null) {
+                int mark = group.getStudents().get(i).getClassMarks().get(subject);
                 if (mark < 0 || mark > 10) {
                     throw new InvalidMarkException(mark);
                 }
@@ -135,9 +135,9 @@ public class University {
     public double averageUniversityClassMark(int studyClassId) {
         double sumOfMarks = 0;
         int marksCount = 0;
-        StudyClass studyClass = getClasses().get(studyClassId);
+        Subject subject = getClasses().get(studyClassId);
         for(Student student: getStudents()) {
-            Integer studentClassMark = student.getClassMarks().get(studyClass);
+            Integer studentClassMark = student.getClassMarks().get(subject);
             if(studentClassMark != null) {
                 if (studentClassMark < 0 || studentClassMark > 10) {
                     throw new InvalidMarkException(studentClassMark);
@@ -153,7 +153,7 @@ public class University {
         this.getStudents().get(studentId).getClassMarks().put(this.classes.get(studyClassId), mark);
     }
 
-    public List<StudyClass> getClasses() {
+    public List<Subject> getClasses() {
         return classes;
     }
 

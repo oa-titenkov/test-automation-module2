@@ -1,11 +1,11 @@
 package learn.errorandexceptions.entity;
 
-public class StudyClass {
+public class Subject {
 
     private int id;
     private String name;
 
-    public StudyClass(int id, String name) {
+    public Subject(int id, String name) {
         this.id = id;
         this.name = name;
     }

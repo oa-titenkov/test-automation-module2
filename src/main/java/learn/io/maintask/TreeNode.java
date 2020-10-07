@@ -35,18 +35,18 @@ public class TreeNode {
         for (Iterator<TreeNode> it = children.iterator(); it.hasNext();) {
             TreeNode next = it.next();
             if (it.hasNext()) {
-                if (next.data.isFile() && searchFolder(next.getParent())){
+                if (next.data.isFile() && isFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "|   ", childrenIndent + "│   ");
                 }
-                else if (next.data.isFile() && !searchFolder(next.getParent())){
+                else if (next.data.isFile() && !isFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "    ", childrenIndent + "│   ");
                 }
                 else next.printTree(builder, childrenIndent + "├───", childrenIndent + "│   ");
-            } else  {
-                if (next.data.isFile() && searchFolder(next.getParent())){
+            } else {
+                if (next.data.isFile() && isFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "|   ", childrenIndent + "│   ");
                 }
-                else if (next.data.isFile() && !searchFolder(next.getParent())){
+                else if (next.data.isFile() && !isFolder(next.getParent())){
                     next.printTree(builder, childrenIndent + "    ", childrenIndent + "│   ");
                 }
                 else next.printTree(builder, childrenIndent + "└───", childrenIndent + "    ");
@@ -54,7 +54,7 @@ public class TreeNode {
         }
     }
 
-    public boolean searchFolder(TreeNode treenode) {
+    public boolean isFolder(TreeNode treenode) {
         if (treenode.getChildren().size() == 0) return false;
         for(int i = 0; i < treenode.getChildren().size(); i++) {
             if (treenode.getChildren().get(i).getData().isDirectory()) return true;
@@ -69,7 +69,6 @@ public class TreeNode {
     }
 
     public String getProperties() {
-
         for(int i = 0; i < this.getChildren().size(); i++) {
             if (this.getChildren().get(i).getData().isFile()){
                 allFileLength = allFileLength + this.getChildren().get(i).data.getName().length();

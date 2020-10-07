@@ -31,7 +31,7 @@ public class Action {
             }
             else if(ship.length == 4) {
                 System.out.println(Arrays.toString(ship));
-                startShipThread(
+                startDockThread(
                         ship[0],
                         Integer.parseInt(ship[1]),
                         Integer.parseInt(ship[2]),
@@ -42,7 +42,7 @@ public class Action {
 
     }
 
-    private static void startShipThread(String name, int loadCount, int unloadCount, Dock dock) {
+    private static void startDockThread(String name, int loadCount, int unloadCount, Dock dock) {
         Ship ship = harbor.getShipByName(name);
 
         if(loadCount != 0 && unloadCount != 0) {
