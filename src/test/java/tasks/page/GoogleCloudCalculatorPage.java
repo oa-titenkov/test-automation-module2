@@ -51,6 +51,9 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     @FindBy(id = "select_value_label_372")
     private WebElement GPUTypeDropdown;
 
+    @FindBy(id = "select_option_378")
+    private WebElement gpuNumberOption;
+
     @FindBy(id = "select_value_label_193")
     private WebElement localSSDDropdown;
 
@@ -73,45 +76,35 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         inputInstances.sendKeys(computeEngine.getNumberOfInstances());
         inputInstancesReason.sendKeys(computeEngine.getInstancesReason());
         operatingSystemSoftwareDropdown.click();
-        parseElement(computeEngine.getOperationSystemSoftware(),"").click();
+        getElement(computeEngine.getOperationSystemSoftware()).click();
         VMClassDropdown.click();
-        parseElement(computeEngine.getVMClass(),"76").click();
+        getElement(computeEngine.getVMClass()).click();
         machineTypeDropdown.click();
-        parseElement(computeEngine.getInstanceType(),"").click();
+        getElement(computeEngine.getInstanceType()).click();
         if(!computeEngine.getGPUNumber().equals("")) {
             addGPUsCheckbox.click();
         }
         wait.until(ExpectedConditions.visibilityOf(numberOfGPUsDropdown));
         numberOfGPUsDropdown.click();
-        parseElement(computeEngine.getGPUNumber(),"378").click();
+        gpuNumberOption.click();
         GPUTypeDropdown.click();
-        parseElement(computeEngine.getGPUType(),"").click();
+        getElement(computeEngine.getGPUType()).click();
         localSSDDropdown.click();
-        parseElement(computeEngine.getLocalSSD(),"").click();
+        getElement(computeEngine.getLocalSSD()).click();
         datacenterLocationDropdown.click();
-        parseElement(computeEngine.getLocation(),"205").click();
+        getElement(computeEngine.getLocation()).click();
         committedUsageDropdown.click();
-        parseElement(computeEngine.getCommittedUsage(),"94").click();
+        getElement(computeEngine.getCommittedUsage()).click();
         addToEstimateButton.click();
 
         logger.info("Price estimated");
         return new GoogleCloudCalculatorEstimatedPage(driver);
     }
 
-    private WebElement parseElement(String input, String id) {
-        if(id.equals("")) {
-            return wait.until(ExpectedConditions.visibilityOf(driver.findElement
-                    (By.xpath("//div[contains(text(),'"
-                            + input
-                            + "')]/ancestor::md-option"))));
-        }
-        else {
-            return wait.until(ExpectedConditions.visibilityOf(driver.findElement
-                    (By.xpath("//div[contains(text(),'"
-                            + input
-                            + "')]/ancestor::md-option[@id='select_option_" +id+"']"))));
-        }
-
+    private WebElement getElement(String element) {
+        return wait.until(ExpectedConditions.visibilityOf(driver.findElement(
+                By.xpath("(//div[contains(text(),'" + element + "')]/parent::md-option)[last()]")
+        )));
     }
 
     protected AbstractPage openPage() {
