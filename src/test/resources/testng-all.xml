@@ -1,16 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Pastebin" verbose="1" >
+<suite name="Pastebin" verbose="1">
     <test name="First">
         <classes>
             <class name="tasks.test.GoogleCloudCalculatorTest">
                 <methods>
-                    <include name="calculatedPriceAndParametersAreCorrect" />
+                    <include name="calculatedPriceAndParametersAreCorrect"/>
                 </methods>
             </class>
             <class name="tasks.test.PastebinPasteCreationTest">
                 <methods>
-                    <include name="pasteCorrectlyCreatedTest" />
+                    <include name="pasteCorrectlyCreatedTest"/>
                 </methods>
             </class>
         </classes>
@@ -19,12 +19,12 @@
         <classes>
             <class name="tasks.test.GoogleCloudCalculatorTest">
                 <methods>
-                    <include name="calculatedPriceFromEmailEqualsManuallyCalculatedPrice" />
+                    <include name="calculatedPriceFromEmailEqualsManuallyCalculatedPrice"/>
                 </methods>
             </class>
             <class name="tasks.test.PastebinPasteCreationTest">
                 <methods>
-                    <include name="pasteCorrectlyCreatedWithSyntaxTest" />
+                    <include name="pasteCorrectlyCreatedWithSyntaxTest"/>
                 </methods>
             </class>
         </classes>

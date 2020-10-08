@@ -25,10 +25,10 @@ public class PastebinCreatedPage extends AbstractPage {
 
     public boolean checkForCorrectPasteCreation() {
         WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
-        try{
+        try {
             wait.until(ExpectedConditions.visibilityOf(correctCreationTextArea));
             return true;
-        } catch(TimeoutException exc) {
+        } catch (TimeoutException exc) {
             return false;
         }
     }

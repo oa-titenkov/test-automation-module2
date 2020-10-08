@@ -4,13 +4,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Objects;
 
 public class Runner {
 
     public static void main(String[] args) {
         File root = new File(args[0]);
-        if(root.isDirectory()) {
+        if (root.isDirectory()) {
             TreeNode node = new TreeNode(root);
             createDirectoryTree(root, node);
             File file = new File("src\\main\\resources\\file_tree.txt");
@@ -19,13 +21,12 @@ public class Runner {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if(root.isFile()) {
+        } else if (root.isFile()) {
             printFileProperties(root);
         }
     }
 
-    public static void createDirectoryTree(File folder, TreeNode node){
+    public static void createDirectoryTree(File folder, TreeNode node) {
         File[] directoryFiles = folder.listFiles();
         Arrays.sort(Objects.requireNonNull(directoryFiles), Comparator.comparing(File::isDirectory));
         for (File file : directoryFiles) {
@@ -44,5 +45,5 @@ public class Runner {
         System.out.println(node.getProperties());
 
     }
-    
+
 }

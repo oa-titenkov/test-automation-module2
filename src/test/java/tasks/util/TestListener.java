@@ -1,20 +1,19 @@
 package tasks.util;
 
-import tasks.driver.DriverSingleton;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
+import org.testng.ITestListener;
 import org.testng.ITestResult;
+import tasks.driver.DriverSingleton;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import org.testng.ITestListener;
 
 public class TestListener implements ITestListener {
     private final Logger log = LogManager.getRootLogger();
@@ -47,7 +46,7 @@ public class TestListener implements ITestListener {
 
     }
 
-    private void saveScreenshot(){
+    private void saveScreenshot() {
         File screenCapture = ((TakesScreenshot) DriverSingleton
                 .getDriver())
                 .getScreenshotAs(OutputType.FILE);
@@ -61,8 +60,8 @@ public class TestListener implements ITestListener {
         }
     }
 
-    private String getCurrentTimeAsString(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "uuuu-MM-dd_HH-mm-ss" );
+    private String getCurrentTimeAsString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd_HH-mm-ss");
         return ZonedDateTime.now().format(formatter);
     }
 }

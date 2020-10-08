@@ -1,19 +1,18 @@
-usual comment
-package learn.io.maintask;
-
 import java.io.File;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+usual comment
+        package learn.io.maintask;
 
 public class TreeNode {
 
     public File fakePublic;
-    private TreeNode pa = null;
     public List<TreeNode> children;
+    public double averageFileCount;
+    private TreeNode pa = null;
     private int folderCount = 1;
     private int publics;
-    public double averageFileCount;
     private int allFileLength;
     private double averageFileNameLength;
 

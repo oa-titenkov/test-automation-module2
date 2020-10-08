@@ -2,7 +2,10 @@ package tasks.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,29 +14,23 @@ import java.util.List;
 
 public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
 
+    private final Logger logger = LogManager.getRootLogger();
+    @FindBy(xpath = "//md-card-content[@id='resultBlock']//div[@class='md-list-item-text ng-binding']")
+    private List<WebElement> results;
+    @FindBy(xpath = "//md-card-content[@id='resultBlock']//b[@class='ng-binding']")
+    private WebElement estimatedCost;
+    @FindBy(id = "email_quote")
+    private WebElement emailEstimateButton;
+    @FindBy(xpath = "//input[@ng-model='emailQuote.user.email']")
+    private WebElement emailInput;
+    @FindBy(xpath = "//button[@aria-label='Send Email']")
+    private WebElement sendEmailButton;
+    @FindBy(xpath = "//iframe[contains(@name,'goog')]")
+    private WebElement iFrame;
+
     public GoogleCloudCalculatorEstimatedPage(WebDriver driver) {
         super(driver);
     }
-
-    private final Logger logger = LogManager.getRootLogger();
-
-    @FindBy(xpath = "//md-card-content[@id='resultBlock']//div[@class='md-list-item-text ng-binding']")
-    private List<WebElement> results;
-
-    @FindBy(xpath = "//md-card-content[@id='resultBlock']//b[@class='ng-binding']")
-    private WebElement estimatedCost;
-
-    @FindBy(id = "email_quote")
-    private WebElement emailEstimateButton;
-
-    @FindBy(xpath = "//input[@ng-model='emailQuote.user.email']")
-    private WebElement emailInput;
-
-    @FindBy(xpath = "//button[@aria-label='Send Email']")
-    private WebElement sendEmailButton;
-
-    @FindBy(xpath = "//iframe[contains(@name,'goog')]")
-    private WebElement iFrame;
 
     public boolean checkEstimatedVMClass(String VMClass) {
         return results.get(1).getText().contains(VMClass.toLowerCase());

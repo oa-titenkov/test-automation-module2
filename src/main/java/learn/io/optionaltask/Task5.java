@@ -1,6 +1,9 @@
 package learn.io.optionaltask;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +23,7 @@ public class Task5 {
                 if (getAverageMark(nameAndMarks[1]) > 7) {
                     result.append(nameAndMarks[0].toUpperCase()).append(" ");
                     result.append(nameAndMarks[1]);
-                }
-                else result.append(line);
+                } else result.append(line);
                 textList.add(result.toString());
             }
         } catch (IOException e) {

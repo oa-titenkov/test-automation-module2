@@ -1,11 +1,11 @@
 package tasks.test;
 
-import tasks.page.GoogleCloudCalculatorEstimatedPage;
-import tasks.page.GoogleCloudPage;
-import tasks.service.ComputeEngineService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import tasks.page.GoogleCloudCalculatorEstimatedPage;
+import tasks.page.GoogleCloudPage;
+import tasks.service.ComputeEngineService;
 
 public class GoogleCloudCalculatorTest extends CommonConditions {
 

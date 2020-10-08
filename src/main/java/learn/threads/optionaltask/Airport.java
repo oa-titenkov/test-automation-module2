@@ -1,6 +1,8 @@
 package learn.threads.optionaltask;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Airport {
 
@@ -9,16 +11,16 @@ public class Airport {
 
 
     public static void main(String[] args) {
-        for(int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             runways.add(new Runway(i));
         }
-        for(int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             planes.add(new Plane(i));
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-        for(int i = 0; i < planes.size(); i++) {
+        for (int i = 0; i < planes.size(); i++) {
             executorService.submit(() -> {
                 try {
                     Runway runway = runways.take();

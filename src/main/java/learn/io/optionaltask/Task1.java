@@ -16,8 +16,8 @@ public class Task1 {
     }
 
     public static void writeRandomNumbersToFile(File file) {
-        try(PrintWriter writer = new PrintWriter(file, "UTF-8")) {
-            for(int i = 0; i < 100; i++) {
+        try (PrintWriter writer = new PrintWriter(file, "UTF-8")) {
+            for (int i = 0; i < 100; i++) {
                 int randomNumber = ThreadLocalRandom.current().nextInt(0, 10001);
                 writer.write(String.valueOf(randomNumber));
                 writer.write(System.getProperty("line.separator"));

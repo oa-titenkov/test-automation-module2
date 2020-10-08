@@ -4,7 +4,7 @@ import tasks.model.ComputeEngine;
 
 public class ComputeEngineService {
 
-    private static final String VM_CLASS =  "test.data.ce.vmclass";
+    private static final String VM_CLASS = "test.data.ce.vmclass";
     private static final String INSTANCE_REASON = "test.data.ce.reason";
     private static final String LOCATION = "test.data.ce.location";
     private static final String COMMITTED_USAGE = "test.data.ce.committed_usage";

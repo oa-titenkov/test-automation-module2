@@ -9,7 +9,7 @@ public class Task3 {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("src\\main\\resources\\optional_task_code.java");
         File fileInReverse = new File("src\\main\\resources\\optional_task3.java");
-        if(!file.exists()){
+        if (!file.exists()) {
             throw new FileNotFoundException("File optional_task_code.java does not exist!");
         }
 

@@ -8,13 +8,12 @@ import org.openqa.selenium.support.FindBy;
 public class GoogleCloudPage extends AbstractPage {
 
     private final static String HOME_URL = "https://cloud.google.com/";
+    @FindBy(name = "q")
+    private WebElement searchArea;
 
     public GoogleCloudPage(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(name = "q")
-    private WebElement searchArea;
 
     public GoogleCloudPage openPage() {
         driver.get(HOME_URL);

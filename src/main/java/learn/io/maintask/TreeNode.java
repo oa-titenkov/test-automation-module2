@@ -11,7 +11,7 @@ public class TreeNode {
     private TreeNode parent = null;
     private List<TreeNode> children;
     private int folderCount = 1;
-    private int fileCount ;
+    private int fileCount;
     private double averageFileCount;
     private int allFileLength;
     private double averageFileNameLength;
@@ -32,31 +32,27 @@ public class TreeNode {
         builder.append(indent);
         builder.append(data.getName());
         builder.append('\n');
-        for (Iterator<TreeNode> it = children.iterator(); it.hasNext();) {
+        for (Iterator<TreeNode> it = children.iterator(); it.hasNext(); ) {
             TreeNode next = it.next();
             if (it.hasNext()) {
-                if (next.data.isFile() && isFolder(next.getParent())){
+                if (next.data.isFile() && isFolder(next.getParent())) {
                     next.printTree(builder, childrenIndent + "|   ", childrenIndent + "│   ");
-                }
-                else if (next.data.isFile() && !isFolder(next.getParent())){
+                } else if (next.data.isFile() && !isFolder(next.getParent())) {
                     next.printTree(builder, childrenIndent + "    ", childrenIndent + "│   ");
-                }
-                else next.printTree(builder, childrenIndent + "├───", childrenIndent + "│   ");
+                } else next.printTree(builder, childrenIndent + "├───", childrenIndent + "│   ");
             } else {
-                if (next.data.isFile() && isFolder(next.getParent())){
+                if (next.data.isFile() && isFolder(next.getParent())) {
                     next.printTree(builder, childrenIndent + "|   ", childrenIndent + "│   ");
-                }
-                else if (next.data.isFile() && !isFolder(next.getParent())){
+                } else if (next.data.isFile() && !isFolder(next.getParent())) {
                     next.printTree(builder, childrenIndent + "    ", childrenIndent + "│   ");
-                }
-                else next.printTree(builder, childrenIndent + "└───", childrenIndent + "    ");
+                } else next.printTree(builder, childrenIndent + "└───", childrenIndent + "    ");
             }
         }
     }
 
     public boolean isFolder(TreeNode treenode) {
         if (treenode.getChildren().size() == 0) return false;
-        for(int i = 0; i < treenode.getChildren().size(); i++) {
+        for (int i = 0; i < treenode.getChildren().size(); i++) {
             if (treenode.getChildren().get(i).getData().isDirectory()) return true;
         }
         return false;
@@ -69,12 +65,11 @@ public class TreeNode {
     }
 
     public String getProperties() {
-        for(int i = 0; i < this.getChildren().size(); i++) {
-            if (this.getChildren().get(i).getData().isFile()){
+        for (int i = 0; i < this.getChildren().size(); i++) {
+            if (this.getChildren().get(i).getData().isFile()) {
                 allFileLength = allFileLength + this.getChildren().get(i).data.getName().length();
                 fileCount++;
-            }
-            else {
+            } else {
                 this.getChildren().get(i).getProperties();
                 fileCount = fileCount + this.getChildren().get(i).getFileCount();
                 folderCount = folderCount + this.getChildren().get(i).getFolderCount();

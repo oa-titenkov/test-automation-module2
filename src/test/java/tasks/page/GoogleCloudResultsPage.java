@@ -24,9 +24,9 @@ public class GoogleCloudResultsPage extends AbstractPage {
     }
 
     public GoogleCloudCalculatorPage openCalculator() {
-        WebDriverWait wait = new WebDriverWait(driver,WAIT_TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
         wait.until(ExpectedConditions.visibilityOf(resultsPage));
-        if(driver.findElements(By.xpath("//button[@class='devsite-snackbar-action']")).size() != 0) {
+        if (driver.findElements(By.xpath("//button[@class='devsite-snackbar-action']")).size() != 0) {
             acceptPrivacyButton.click();
         }
         resultsPage.click();

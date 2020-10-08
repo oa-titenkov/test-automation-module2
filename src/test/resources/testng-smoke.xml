@@ -1,16 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Smoke" verbose="1" >
+<suite name="Smoke" verbose="1">
     <test name="GoogleCloud">
         <classes>
             <class name="tasks.test.GoogleCloudCalculatorTest">
                 <methods>
-                    <include name="calculatedPriceAndParametersAreCorrect" />
+                    <include name="calculatedPriceAndParametersAreCorrect"/>
                 </methods>
             </class>
             <class name="tasks.test.PastebinPasteCreationTest">
                 <methods>
-                    <include name="pasteCorrectlyCreatedTest" />
+                    <include name="pasteCorrectlyCreatedTest"/>
                 </methods>
             </class>
         </classes>

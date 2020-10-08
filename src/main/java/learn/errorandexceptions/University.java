@@ -56,12 +56,16 @@ public class University {
     );
 
     private final List<Faculty> faculties = Arrays.asList(
-            new Faculty(0, "Law", groups.subList(0,2)),
-            new Faculty(1, "Engineering", groups.subList(2,4))
+            new Faculty(0, "Law", groups.subList(0, 2)),
+            new Faculty(1, "Engineering", groups.subList(2, 4))
     );
 
+    public University() {
+        setMarks();
+    }
+
     public void setMarks() {
-        this.setClassMark(0, 1, 1);
+        this.setClassMark(0, 1, 11);
         this.setClassMark(1, 1, 2);
         this.setClassMark(2, 1, 3);
         this.setClassMark(3, 1, 4);
@@ -75,10 +79,6 @@ public class University {
         this.setClassMark(11, 1, 9);
         this.setClassMark(12, 1, 5);
 
-    }
-
-    public University() {
-        setMarks();
     }
 
     public String averageStudentAllClassesMark(int studentId) {
@@ -99,17 +99,17 @@ public class University {
     }
 
     public double averageGroupClassMark(int studyClassId, int groupId, int facultyId) {
-        if(getFaculties().size() == 0) {
+        if (getFaculties().size() == 0) {
             throw new NoFacultiesInUniversityException();
         }
 
         Faculty faculty = getFaculties().get(facultyId);
-        if(getFaculties().get(facultyId).getGroups().size() == 0) {
+        if (getFaculties().get(facultyId).getGroups().size() == 0) {
             throw new NoGroupsInFacultyException(faculty.getName());
         }
 
         Group group = faculty.getGroups().get(groupId);
-        if(group.getStudents().size() == 0) {
+        if (group.getStudents().size() == 0) {
             throw new NoStudentsInGroupException(group.getName());
         }
 
@@ -120,7 +120,7 @@ public class University {
             if (group.getStudents().get(i).getClassMarks().size() == 0) {
                 throw new NoStudentClassesException(group.getStudents().get(i).getFirstName());
             }
-            if(group.getStudents().get(i).getClassMarks().get(subject) != null) {
+            if (group.getStudents().get(i).getClassMarks().get(subject) != null) {
                 int mark = group.getStudents().get(i).getClassMarks().get(subject);
                 if (mark < 0 || mark > 10) {
                     throw new InvalidMarkException(mark);
@@ -136,9 +136,9 @@ public class University {
         double sumOfMarks = 0;
         int marksCount = 0;
         Subject subject = getClasses().get(studyClassId);
-        for(Student student: getStudents()) {
+        for (Student student : getStudents()) {
             Integer studentClassMark = student.getClassMarks().get(subject);
-            if(studentClassMark != null) {
+            if (studentClassMark != null) {
                 if (studentClassMark < 0 || studentClassMark > 10) {
                     throw new InvalidMarkException(studentClassMark);
                 }

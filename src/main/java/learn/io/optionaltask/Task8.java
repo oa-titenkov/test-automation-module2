@@ -16,7 +16,7 @@ public class Task8 {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if(!line.equals("")) {
+                if (!line.equals("")) {
                     textList.add(line
                             .trim()
                             .replaceAll("\\s*}\\s*", "}")
