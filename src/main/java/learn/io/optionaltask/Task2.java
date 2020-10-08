@@ -11,7 +11,7 @@ public class Task2 {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("src\\main\\resources\\optional_task_code.java");
         File privateFieldsFile = new File("src\\main\\resources\\optional_task2.java");
-        if(!file.exists()){
+        if (!file.exists()) {
             throw new FileNotFoundException("File optional_task_code.java does not exist!");
         }
 
@@ -20,7 +20,7 @@ public class Task2 {
             String line;
             while ((line = reader.readLine()) != null) {
                 StringBuffer result = new StringBuffer();
-                Matcher matcher = Pattern.compile("(^\\s+(public)\\s+)").matcher(line);
+                Matcher matcher = Pattern.compile("(^\\s+(public)\\s+(?!class))").matcher(line);
                 if (matcher.find()) {
                     matcher.appendReplacement(result, matcher.group(1).replaceAll("public", "private"));
                 }
