@@ -12,17 +12,19 @@ public class Runner {
 
     public static void main(String[] args) {
         File root = new File(args[0]);
-        if (root.isDirectory()) {
-            TreeNode node = new TreeNode(root);
+        File file = new File("src\\main\\resources\\file_tree.txt");
+        TreeNode node = new TreeNode(root);
+        if (root.isFile()) {
+            createDirectoryTree(root.getParentFile(), node);
+            System.out.println(node.getProperties());
+        }
+        else  {
             createDirectoryTree(root, node);
-            File file = new File("src\\main\\resources\\file_tree.txt");
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                writer.write(node.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (root.isFile()) {
-            printFileProperties(root);
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(node.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -36,13 +38,6 @@ public class Runner {
                 node.addChild(file);
             }
         }
-
-    }
-
-    public static void printFileProperties(File filePath) {
-        TreeNode node = new TreeNode(filePath.getParentFile());
-        createDirectoryTree(filePath.getParentFile(), node);
-        System.out.println(node.getProperties());
 
     }
 
