@@ -65,8 +65,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         if (System.getProperty("browser").equals("firefox")) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToEstimateButton);
         }
-        wait.until(ExpectedConditions.visibilityOf(machineTypeDropdown)).click();
-        machineTypeDropdown.sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.visibilityOf(machineTypeDropdown)).sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.visibilityOf(getElement(computeEngine.getInstanceType()))).click();
 
         if (!computeEngine.getGPUNumber().equals("")) {

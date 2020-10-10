@@ -21,11 +21,11 @@ public class GoogleCloudCalculatorTest extends CommonConditions {
                 .calculateComputeEnginePrice(new ComputeEngineService().getComputeEngineHardcore());
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(calculatedPage.checkEstimatedVMClass("Regular"));
-        softAssert.assertTrue(calculatedPage.checkEstimatedInstanceType("n1-standard-8"));
-        softAssert.assertTrue(calculatedPage.checkEstimatedLocation("Frankfurt"));
-        softAssert.assertTrue(calculatedPage.checkEstimatedLocalSSD("2x375 GiB"));
-        softAssert.assertTrue(calculatedPage.checkEstimatedUsage("1 Year"));
+        softAssert.assertEquals(calculatedPage.getEstimatedVMClass(), "regular");
+        softAssert.assertEquals(calculatedPage.getEstimatedInstanceType(), "n1-standard-8");
+        softAssert.assertEquals(calculatedPage.getEstimatedLocation(), "Frankfurt");
+        softAssert.assertEquals(calculatedPage.getEstimatedLocalSSD(), "2x375");
+        softAssert.assertEquals(calculatedPage.getEstimatedUsage(), "1 Year");
         softAssert.assertEquals(calculatedPage.getEstimatedPrice(), MANUALLY_CALCULATED_PRICE);
         softAssert.assertAll();
     }

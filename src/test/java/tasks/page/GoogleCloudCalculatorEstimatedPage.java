@@ -32,24 +32,24 @@ public class GoogleCloudCalculatorEstimatedPage extends AbstractPage {
         super(driver);
     }
 
-    public boolean checkEstimatedVMClass(String VMClass) {
-        return results.get(1).getText().contains(VMClass.toLowerCase());
+    public String getEstimatedVMClass() {
+        return results.get(1).getText().split(" ")[2];
     }
 
-    public boolean checkEstimatedInstanceType(String type) {
-        return results.get(2).getText().contains(type);
+    public String getEstimatedInstanceType() {
+        return results.get(2).getText().split(" ")[2];
     }
 
-    public boolean checkEstimatedLocation(String location) {
-        return results.get(3).getText().contains(location);
+    public String getEstimatedLocation() {
+        return results.get(3).getText().split(" ")[1];
     }
 
-    public boolean checkEstimatedLocalSSD(String LocalSSD) {
-        return results.get(4).getText().contains(LocalSSD);
+    public String getEstimatedLocalSSD() {
+        return results.get(4).getText().split(" ")[5];
     }
 
-    public boolean checkEstimatedUsage(String usage) {
-        return results.get(5).getText().contains(usage);
+    public String getEstimatedUsage() {
+        return results.get(5).getText().split(" ")[2] + " " + results.get(5).getText().split(" ")[3];
     }
 
     public String getEstimatedPrice() {
