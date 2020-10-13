@@ -1,4 +1,4 @@
-package tasks.page;
+package tasks.page.google;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,11 +7,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import tasks.model.ComputeEngine;
+import tasks.page.AbstractPage;
 
 public class GoogleCloudCalculatorPage extends AbstractPage {
 
     private final WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     private final Logger logger = LogManager.getRootLogger();
+
     @FindBy(xpath = "//iframe[contains(@name,'goog')]")
     private WebElement mainFrame;
     @FindBy(xpath = "//div[@class='tab-holder compute']")
@@ -20,26 +22,8 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     private WebElement inputInstances;
     @FindBy(xpath = "//input[@id='input_62']")
     private WebElement inputInstancesReason;
-    @FindBy(id = "select_value_label_54")
-    private WebElement operatingSystemSoftwareDropdown;
-    @FindBy(id = "select_value_label_55")
-    private WebElement VMClassDropdown;
-    @FindBy(id = "select_87")
-    private WebElement machineTypeDropdown;
     @FindBy(xpath = "//md-checkbox[@ng-model='listingCtrl.computeServer.addGPUs']")
     private WebElement addGPUsCheckbox;
-    @FindBy(id = "select_value_label_371")
-    private WebElement numberOfGPUsDropdown;
-    @FindBy(id = "select_value_label_372")
-    private WebElement GPUTypeDropdown;
-    @FindBy(id = "select_option_378")
-    private WebElement gpuNumberOption;
-    @FindBy(id = "select_value_label_193")
-    private WebElement localSSDDropdown;
-    @FindBy(id = "select_value_label_59")
-    private WebElement datacenterLocationDropdown;
-    @FindBy(id = "select_value_label_60")
-    private WebElement committedUsageDropdown;
     @FindBy(xpath = "//button[@aria-label='Add to Estimate']")
     private WebElement addToEstimateButton;
 
@@ -57,29 +41,38 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         inputInstances.sendKeys(computeEngine.getNumberOfInstances());
         inputInstancesReason.sendKeys(computeEngine.getInstancesReason());
 
-        operatingSystemSoftwareDropdown.click();
+        getDropDown(computeEngine.getOperationSystemSoftware()).click();
         getElement(computeEngine.getOperationSystemSoftware()).click();
-        VMClassDropdown.click();
+
+        getDropDown(computeEngine.getVMClass()).click();
         getElement(computeEngine.getVMClass()).click();
 
         if (System.getProperty("browser").equals("firefox")) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToEstimateButton);
         }
-        wait.until(ExpectedConditions.visibilityOf(machineTypeDropdown)).sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.visibilityOf(getDropDown(computeEngine.getInstanceType()))).sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.visibilityOf(getElement(computeEngine.getInstanceType()))).click();
 
         if (!computeEngine.getGPUNumber().equals("")) {
             addGPUsCheckbox.click();
         }
-        wait.until(ExpectedConditions.visibilityOf(numberOfGPUsDropdown)).click();
-        gpuNumberOption.click();
-        GPUTypeDropdown.click();
+        wait.until(ExpectedConditions.visibilityOf(getDropDown("GPUCount"))).click();
+        getElement("GPUCount " + computeEngine.getGPUNumber()).click();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        getDropDown(computeEngine.getGPUType()).click();
         getElement(computeEngine.getGPUType()).click();
-        localSSDDropdown.click();
+
+        getDropDown(computeEngine.getLocalSSD()).click();
         getElement(computeEngine.getLocalSSD()).click();
-        datacenterLocationDropdown.click();
+
+        getDropDown(computeEngine.getLocation()).click();
         getElement(computeEngine.getLocation()).click();
-        committedUsageDropdown.click();
+
+        getDropDown(computeEngine.getCommittedUsage()).click();
         getElement(computeEngine.getCommittedUsage()).click();
 
         addToEstimateButton.click();
@@ -88,8 +81,27 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     }
 
     private WebElement getElement(String element) {
+        if (element.contains("GPUCount")) {
+            System.out.println(element);
+            int count = Integer.parseInt(element.split(" ")[1]) + 1;
+            return wait.until(ExpectedConditions.visibilityOf(driver.findElement(
+                    By.xpath("//md-option[@ng-repeat='item in listingCtrl.supportedGpuNumbers[listingCtrl.computeServer.gpuType]'][" +
+                            count + "]")
+            )));
+        }
         return wait.until(ExpectedConditions.visibilityOf(driver.findElement(
                 By.xpath("(//div[contains(text(),'" + element + "')]/parent::md-option)[last()]")
+        )));
+    }
+
+    private WebElement getDropDown(String element) {
+        if (element.contains("GPUCount")) {
+            return wait.until(ExpectedConditions.visibilityOf(driver.findElement(
+                    By.xpath("//md-select[@placeholder='Number of GPUs']")
+            )));
+        }
+        return wait.until(ExpectedConditions.visibilityOf(driver.findElement(
+                By.xpath("(//div[contains(text(),'" + element + "')]/ancestor::md-select)[1]")
         )));
     }
 

@@ -4,8 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import tasks.model.Paste;
-import tasks.page.PastebinCreatePage;
-import tasks.page.PastebinCreatedPage;
+import tasks.page.pastebin.PastebinCreatePage;
+import tasks.page.pastebin.PastebinCreatedPage;
 
 public class PastebinPasteCreationTest extends CommonConditions {
 
