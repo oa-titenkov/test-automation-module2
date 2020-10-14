@@ -58,11 +58,6 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         }
         wait.until(ExpectedConditions.visibilityOf(getDropDown("GPUCount"))).click();
         getElement("GPUCount " + computeEngine.getGPUNumber()).click();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         getDropDown(computeEngine.getGPUType()).click();
         getElement(computeEngine.getGPUType()).click();
 
@@ -82,7 +77,6 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
 
     private WebElement getElement(String element) {
         if (element.contains("GPUCount")) {
-            System.out.println(element);
             int count = Integer.parseInt(element.split(" ")[1]) + 1;
             return wait.until(ExpectedConditions.visibilityOf(driver.findElement(
                     By.xpath("//md-option[@ng-repeat='item in listingCtrl.supportedGpuNumbers[listingCtrl.computeServer.gpuType]'][" +
