@@ -54,15 +54,26 @@ public class Runner {
             String line;
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String trimmedLine = line
+                StringBuilder lineBuilder = new StringBuilder();
+                if (line.contains("├───") | line.contains("└───")) {
+                    lineBuilder.append(line).append("*dir");
+                }
+                else lineBuilder.append(line).append("*file");
+                String trimmedLine = lineBuilder.toString()
                         .replaceAll("│", "")
                         .replaceAll("\\|", "")
                         .replaceAll("├───", "")
                         .replaceAll("└───", "")
                         .trim();
-                if (trimmedLine.split("\\.").length > 1) {
+                if (trimmedLine.split("\\*")[1].equals("file")) {
                     fileCount++;
-                    allFileLength = allFileLength + trimmedLine.split("\\.")[0].length();
+                    if(trimmedLine.contains(".")) {
+                        String fileNameWithoutExtension = trimmedLine.substring(0, trimmedLine.lastIndexOf("."));
+                        allFileLength = allFileLength + fileNameWithoutExtension.length();
+                    }
+                    else {
+                        allFileLength = allFileLength + trimmedLine.split("\\*")[0].length();
+                    }
                 }
                 else folderCount++;
             }
